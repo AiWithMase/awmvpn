@@ -15,7 +15,7 @@ How to run, configure, and troubleshoot the service. The [dashboard guide](DASHB
 
 ## Windows
 
-1. Put `awmvpn-core.exe` in a folder you can write to (not `Program Files`), for example `C:\Tools\FirefoxVPN\`.
+1. Put `awmvpn-core.exe` in a folder you can write to (not `Program Files`), for example `C:\Tools\AWMVPN\`.
 2. Double-click it. A window shows the status screen (below) and runs the proxy. The `user-data` folder appears next to the executable, and the log is written to `user-data\logs`, one file per day.
 3. Choose **1 Open the dashboard** (or browse to <http://127.0.0.1:10820/app/>), add an account on the Accounts page, and use `127.0.0.1:10810` as the SOCKS5 proxy in your applications (in a browser: SOCKS v5 with remote DNS).
 
