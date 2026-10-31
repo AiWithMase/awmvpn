@@ -21,7 +21,7 @@
 // its bundle, whose Contents is replaced. For a copy that Setup
 // installed, it also sets the version in Windows' list of installed apps;
 // the uninstaller removes the app's files whichever version put them there
-// ([UninstallDelete] in app/windows/installer/firefox-vpn.iss). The new
+// ([UninstallDelete] in app/windows/installer/awmvpn.iss). The new
 // Setup is not run: when it fails, Inno Setup's rollback removes the files
 // it added but does not restore the ones it replaced (tried), which can
 // leave half of each version. The copy writes what happened to result.json
@@ -61,9 +61,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/signing"
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/signing"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // The states of Status.
@@ -92,9 +92,9 @@ type appPackage struct {
 
 // windowsPackage is the Windows app's zip.
 var windowsPackage = appPackage{
-	name:   func(v string) string { return "Firefox-VPN-" + v + "-Windows-x64.zip" },
-	app:    "firefox-vpn.exe",
-	core:   "core/firefox-vpn-core.exe",
+	name:   func(v string) string { return "AWMVPN-" + v + "-Windows-x64.zip" },
+	app:    "awmvpn.exe",
+	core:   "core/awmvpn-core.exe",
 	unpack: unzip,
 }
 
@@ -115,13 +115,13 @@ func AppDir(exe string) string {
 
 // releasesURL is where GitHub serves a release's files:
 // <releasesURL>v<version>/<file>.
-const releasesURL = "https://github.com/armanlife/firefox-vpn-client/releases/download/"
+const releasesURL = "https://github.com/AiWithMase/awmvpn/releases/download/"
 
 // ServerEnv names a release server to use instead of GitHub, for trying
 // updates with a local test release: it serves
 // <server>/releases/download/v<version>/<file>. A loopback server is
 // reached directly.
-const ServerEnv = "FIREFOX_VPN_UPDATE_SERVER"
+const ServerEnv = "AWMVPN_UPDATE_SERVER"
 
 // Size limits of what a download reads.
 const (

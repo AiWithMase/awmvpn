@@ -17,10 +17,10 @@ import (
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/http3"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/resolver"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/resolver"
 )
 
 var errProxyHTTP3Unavailable = errors.New("proxy did not negotiate HTTP/3")

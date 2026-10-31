@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = Firefox VPN
+PRODUCT_NAME = AWMVPN
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.arman.firefoxvpn
+PRODUCT_BUNDLE_IDENTIFIER = com.aiwithmase.awmvpn
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 Arman. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright (C) 2026 AiWithMase. GPL-3.0; based on work by Arman.

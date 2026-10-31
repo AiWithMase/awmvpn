@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/fxa"
-	"github.com/armanlife/firefox-vpn-client/core/internal/guardian"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/fxa"
+	"github.com/aiwithmase/awmvpn/core/internal/guardian"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
 )
 
 const (
@@ -75,7 +75,7 @@ func GuardianFailureHint(err error) string {
 	case errors.Is(err, guardian.ErrQuotaExceeded):
 		return "the account's monthly proxy quota is exhausted; wait for the quota reset"
 	case errors.Is(err, guardian.ErrNotEntitled):
-		return "the account is not entitled to the Firefox VPN proxy and activation did not grant access"
+		return "the account is not entitled to the AWMVPN proxy and activation did not grant access"
 	}
 	return ""
 }

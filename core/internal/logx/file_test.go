@@ -51,7 +51,7 @@ func TestDailyLogFiles(t *testing.T) {
 	if _, err := f.Write([]byte("second day\n")); err != nil {
 		t.Fatal(err)
 	}
-	if got := strings.Join(logNames(t, dir), " "); got != "firefox-vpn-2026-03-01.log firefox-vpn-2026-03-02.log" {
+	if got := strings.Join(logNames(t, dir), " "); got != "awmvpn-2026-03-01.log awmvpn-2026-03-02.log" {
 		t.Fatalf("files = %s", got)
 	}
 	data, _ := os.ReadFile(DayFile(dir, day(2)))
@@ -68,7 +68,7 @@ func TestLogsKeptForOneWeek(t *testing.T) {
 	if err := os.MkdirAll(dir, 0o700); err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"firefox-vpn.log", "firefox-vpn.log.3", "notes.txt"} {
+	for _, name := range []string{"awmvpn.log", "awmvpn.log.3", "notes.txt"} {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte("x"), 0o600); err != nil {
 			t.Fatal(err)
 		}
@@ -83,8 +83,8 @@ func TestLogsKeptForOneWeek(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer f.Close()
-	want := []string{"firefox-vpn-2026-03-04.log", "firefox-vpn-2026-03-05.log", "firefox-vpn-2026-03-06.log", "firefox-vpn-2026-03-07.log",
-		"firefox-vpn-2026-03-08.log", "firefox-vpn-2026-03-09.log", "firefox-vpn-2026-03-10.log", "notes.txt"}
+	want := []string{"awmvpn-2026-03-04.log", "awmvpn-2026-03-05.log", "awmvpn-2026-03-06.log", "awmvpn-2026-03-07.log",
+		"awmvpn-2026-03-08.log", "awmvpn-2026-03-09.log", "awmvpn-2026-03-10.log", "notes.txt"}
 	if got := logNames(t, dir); strings.Join(got, " ") != strings.Join(want, " ") {
 		t.Fatalf("files = %v", got)
 	}
@@ -94,7 +94,7 @@ func TestLogsKeptForOneWeek(t *testing.T) {
 		t.Fatal(err)
 	}
 	got := logNames(t, dir)
-	if len(got) != 8 || got[0] != "firefox-vpn-2026-03-05.log" || got[6] != "firefox-vpn-2026-03-11.log" {
+	if len(got) != 8 || got[0] != "awmvpn-2026-03-05.log" || got[6] != "awmvpn-2026-03-11.log" {
 		t.Fatalf("after the eighth day started: %v", got)
 	}
 }

@@ -14,9 +14,9 @@ class AppSettings extends ChangeNotifier {
 
   final File? file;
 
-  /// A language code (`en`, `fa`, `zh`, `ru`), or empty for the system
-  /// language.
-  String language = '';
+  /// A language code (`en`, `fa`, `zh`, `ru`). Persian by default: the
+  /// brand's first audience; the user can pick another in Settings.
+  String language = 'fa';
   ThemeMode themeMode = ThemeMode.system;
   CloseAction closeAction = CloseAction.ask;
 

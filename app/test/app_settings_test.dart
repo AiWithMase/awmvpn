@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firefox_vpn/app_settings.dart';
-import 'package:firefox_vpn/core/core_process.dart';
+import 'package:awmvpn/app_settings.dart';
+import 'package:awmvpn/core/core_process.dart';
 
 void main() {
   late Directory dir;
@@ -13,8 +13,9 @@ void main() {
 
   test('defaults without a file', () async {
     final s = await AppSettings.load(dir.path);
-    expect(s.language, '');
-    expect(s.locale, isNull);
+    // Persian is the brand's default language.
+    expect(s.language, 'fa');
+    expect(s.locale, const Locale('fa'));
     expect(s.themeMode, ThemeMode.system);
     expect(s.closeAction, CloseAction.ask);
     expect(s.firstRun, isTrue);
@@ -59,7 +60,7 @@ void main() {
     File('${dir.path}/app-settings.json')
         .writeAsStringSync('{"language": "xx", "theme": "neon", "close": 7}');
     final s = await AppSettings.load(dir.path);
-    expect(s.language, '');
+    expect(s.language, 'fa');
     expect(s.themeMode, ThemeMode.system);
     expect(s.closeAction, CloseAction.ask);
   });
@@ -73,8 +74,8 @@ void main() {
       CoreProcess.executableFrom(const []),
       endsWith(
         Platform.isWindows
-            ? r'core\firefox-vpn-core.exe'
-            : 'core/firefox-vpn-core',
+            ? r'core\awmvpn-core.exe'
+            : 'core/awmvpn-core',
       ),
     );
   });

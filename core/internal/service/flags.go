@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/securefile"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/securefile"
 )
 
 // Country flags. The web folder carries the flags of Mozilla's locations

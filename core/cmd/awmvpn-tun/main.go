@@ -1,6 +1,6 @@
 //go:generate go run ../../tools/winres -program tun
 
-// Command firefox-vpn-tun is the TUN service of the desktop TUN mode: it
+// Command awmvpn-tun is the TUN service of the desktop TUN mode: it
 // holds the TUN adapter, its routes, and the DNS filters with the system's
 // rights, for the core, which stays an ordinary program (internal/tunservice,
 // protocol internal/tunapi). The app carries it beside the core and
@@ -8,10 +8,10 @@
 // a systemd service in /opt, on macOS as a launchd daemon in
 // /Library/Application Support.
 //
-//	firefox-vpn-tun install     install or update the service for this user (asks for administrator rights)
-//	firefox-vpn-tun uninstall   remove the service (no prompt while it runs)
-//	firefox-vpn-tun update      make the running service this signed executable
-//	firefox-vpn-tun -version    print the version
+//	awmvpn-tun install     install or update the service for this user (asks for administrator rights)
+//	awmvpn-tun uninstall   remove the service (no prompt while it runs)
+//	awmvpn-tun update      make the running service this signed executable
+//	awmvpn-tun -version    print the version
 //
 // On macOS, install and uninstall take -prompt, the reason the
 // administrator prompt shows (the app passes it in the user's language).
@@ -27,7 +27,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // Exit statuses.
@@ -54,11 +54,11 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, "Usage: firefox-vpn-tun install | uninstall | update | -version")
+	fmt.Fprintln(os.Stderr, "Usage: awmvpn-tun install | uninstall | update | -version")
 	os.Exit(exitUsage)
 }
 
 func fail(err error) int {
-	fmt.Fprintln(os.Stderr, "firefox-vpn-tun:", err)
+	fmt.Fprintln(os.Stderr, "awmvpn-tun:", err)
 	return exitFailed
 }

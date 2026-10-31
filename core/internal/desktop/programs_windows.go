@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
 )
 
 // listsPrograms: runningPrograms works here.

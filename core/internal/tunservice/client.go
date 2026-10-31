@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // The commands an ordinary user runs: the app (installing on the first TUN

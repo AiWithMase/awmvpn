@@ -1,24 +1,24 @@
-/* Firefox VPN dashboard. Dark by default; light follows the system or the
+/* AWMVPN dashboard. Dark by default; light follows the system or the
    theme switch (data-theme on <html>). */
 :root {
-  --bg: #0b0d12;
+  --bg: #0d0b0a;
   --bg-grad: radial-gradient(1200px 600px at 85% -10%, rgba(143, 107, 255, .10), transparent 60%),
              radial-gradient(900px 500px at -10% 110%, rgba(255, 113, 57, .07), transparent 60%);
-  --surface: #12151d;
-  --surface-2: #171b25;
-  --surface-3: #1e2330;
-  --border: #242a38;
-  --border-strong: #2f3647;
-  --text: #e7e9f0;
-  --muted: #8a92a6;
-  --faint: #5d667b;
-  --accent: #8f6bff;
-  --accent-2: #ff7139;
+  --surface: #161311;
+  --surface-2: #1c1917;
+  --surface-3: #262220;
+  --border: #2c2724;
+  --border-strong: #3a342f;
+  --text: #f2ede8;
+  --muted: #a39a92;
+  --faint: #6e665f;
+  --accent: #e8772e;
+  --accent-2: #f2a25c;
   --accent-soft: rgba(143, 107, 255, .14);
   --on-accent: #ffffff;
   --ok: #34d399;
   --ok-soft: rgba(52, 211, 153, .13);
-  --sleep: #a5b4fc;
+  --sleep: #e8b98c;
   --sleep-soft: rgba(165, 180, 252, .13);
   --warn: #fbbf24;
   --warn-soft: rgba(251, 191, 36, .13);
@@ -27,13 +27,13 @@
   --bad: #f87171;
   --bad-soft: rgba(248, 113, 113, .13);
   --info: #60a5fa;
-  --bar: #222837;
+  --bar: #2a2522;
   --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 8px 24px rgba(0, 0, 0, .25);
   --radius: 14px;
   --radius-sm: 9px;
   --sans: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
   --mono: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, Menlo, monospace;
-  --gradient: linear-gradient(135deg, #ff9a3c 0%, #ff3d77 52%, #8f6bff 100%);
+  --gradient: linear-gradient(135deg, #f2a25c 0%, #e8772e 55%, #c85e1e 100%);
   color-scheme: dark;
 }
 :root[data-theme="light"] {

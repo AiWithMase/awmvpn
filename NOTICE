@@ -1,0 +1,31 @@
+AWMVPN
+Copyright (C) 2026 AiWithMase
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. It comes without any warranty, to the extent permitted by law. See
+LICENSE for the full text.
+
+It is based on Firefox VPN (https://github.com/armanlife/firefox-vpn-client),
+Copyright (C) Arman, also under the GNU General Public License v3. The
+original project's documentation and the Mozilla VPN logo assets that shipped
+with it were removed; the product's name, icons, identifiers, and packaging
+were changed.
+
+Trademarks
+----------
+"Firefox", "Mozilla", and the Firefox and Mozilla logos are trademarks of the
+Mozilla Foundation. AWMVPN is an unofficial client: it is not affiliated with,
+endorsed by, or sponsored by Mozilla. It signs in with a Firefox Account and
+uses Mozilla's service, and Mozilla's terms of service apply to that use.
+
+Brand assets
+------------
+The files in brand/ (mark.svg, tile.svg, and the PNGs made from them) are
+AiWithMase's own artwork.
+
+Third-party assets kept from the original project
+-------------------------------------------------
+- Country flags: flag-icons, MIT (app/assets/flags/LICENSE).
+- Vazirmatn font: SIL Open Font License 1.1 (app/assets/fonts/OFL.txt).

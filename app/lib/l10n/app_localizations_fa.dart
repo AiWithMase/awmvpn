@@ -10,7 +10,7 @@ class AppLocalizationsFa extends AppLocalizations {
   AppLocalizationsFa([String locale = 'fa']) : super(locale);
 
   @override
-  String get appTitle => 'Firefox VPN';
+  String get appTitle => 'AWMVPN';
 
   @override
   String get navOverview => 'نمای کلی';
@@ -1314,7 +1314,7 @@ class AppLocalizationsFa extends AppLocalizations {
       'سرویس TUN از این برنامه جدیدتر است. برای استفاده از حالت TUN برنامه را به‌روز کنید.';
 
   @override
-  String get tunBusy => 'حالت TUN را نسخه دیگری از Firefox VPN استفاده می‌کند.';
+  String get tunBusy => 'حالت TUN را نسخه دیگری از AWMVPN استفاده می‌کند.';
 
   @override
   String get tunInstall => 'نصب';
@@ -1336,12 +1336,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String get tunServiceRemoved => 'سرویس TUN حذف شد.';
 
   @override
-  String get tunInstallPrompt =>
-      'برای حالت TUN، سرویس Firefox VPN باید نصب شود.';
+  String get tunInstallPrompt => 'برای حالت TUN، سرویس AWMVPN باید نصب شود.';
 
   @override
-  String get tunRemovePrompt =>
-      'برای حذف حالت TUN، سرویس Firefox VPN باید حذف شود.';
+  String get tunRemovePrompt => 'برای حذف حالت TUN، سرویس AWMVPN باید حذف شود.';
 
   @override
   String tunRemoveFailed(String error) {

@@ -1,4 +1,4 @@
-# Firefox VPN on OpenWrt
+# AWMVPN on OpenWrt
 
 Your router becomes a **proxy** (SOCKS5 and HTTP, one port) with a **web panel**. Your devices use it, and their traffic goes through Mozilla's VPN servers.
 
@@ -37,10 +37,10 @@ Tested on a Xiaomi Redmi Router AX6S: 12 MB of RAM idle, 20 MB with traffic.
 **Way A: on the router** (for amd64, write `amd64` instead of `arm64`):
 
 ```sh
-mkdir -p /root/firefox-vpn && cd /root/firefox-vpn
-wget -O core.tar.gz https://github.com/armanlife/firefox-vpn-client/releases/latest/download/firefox-vpn-core-linux-arm64.tar.gz
-tar -xzf core.tar.gz && mv firefox-vpn-core-linux-arm64/firefox-vpn-core . && rm -r core.tar.gz firefox-vpn-core-linux-arm64
-chmod +x firefox-vpn-core
+mkdir -p /root/awmvpn && cd /root/awmvpn
+wget -O core.tar.gz https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-arm64.tar.gz
+tar -xzf core.tar.gz && mv awmvpn-core-linux-arm64/awmvpn-core . && rm -r core.tar.gz awmvpn-core-linux-arm64
+chmod +x awmvpn-core
 ```
 
 - Certificate error? `opkg update && opkg install ca-bundle` (on 25.12 and newer: `apk add ca-bundle`)
@@ -48,28 +48,28 @@ chmod +x firefox-vpn-core
 
 **Way B: from a computer**
 
-1. Download [arm64](https://github.com/armanlife/firefox-vpn-client/releases/latest/download/firefox-vpn-core-linux-arm64.tar.gz) or [amd64](https://github.com/armanlife/firefox-vpn-client/releases/latest/download/firefox-vpn-core-linux-amd64.tar.gz) and unpack it.
+1. Download [arm64](https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-arm64.tar.gz) or [amd64](https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-amd64.tar.gz) and unpack it.
 2. Open [Bitvise SSH Client](https://www.bitvise.com/ssh-client-download) or [WinSCP](https://winscp.net/): router address, port 22, user `root`.
-3. Put `firefox-vpn-core` in `/root/firefox-vpn/` (make the folder).
-4. On the router: `chmod +x /root/firefox-vpn/firefox-vpn-core`
+3. Put `awmvpn-core` in `/root/awmvpn/` (make the folder).
+4. On the router: `chmod +x /root/awmvpn/awmvpn-core`
 
 The file window does not open? Install `openssh-sftp-server` on the router, or pick **SCP** in WinSCP.
 
 ## 2. Open it to your network
 
 ```sh
-cd /root/firefox-vpn
-./firefox-vpn-core -setup-server admin
+cd /root/awmvpn
+./awmvpn-core -setup-server admin
 ```
 
 - The panel and the proxy now listen on **0.0.0.0** (every address of the router), not only on `127.0.0.1` (the router itself). If the panel ever stops opening from your devices, check this, and run this step again.
 - It prints the **panel** login and the **proxy** login. **Write them down**: they are shown only once.
-- Your own panel password: run `./firefox-vpn-core -panel` now.
+- Your own panel password: run `./awmvpn-core -panel` now.
 - Never open the ports 10810 and 10820 on WAN.
 
 ## 3. Start it with the router
 
-Save this as `/etc/init.d/firefox-vpn`:
+Save this as `/etc/init.d/awmvpn`:
 
 ```sh
 #!/bin/sh /etc/rc.common
@@ -78,7 +78,7 @@ USE_PROCD=1
 
 start_service() {
 	procd_open_instance
-	procd_set_param command /root/firefox-vpn/firefox-vpn-core -plain
+	procd_set_param command /root/awmvpn/awmvpn-core -plain
 	procd_set_param respawn
 	procd_set_param stdout 1
 	procd_set_param stderr 1
@@ -89,9 +89,9 @@ start_service() {
 Then:
 
 ```sh
-chmod +x /etc/init.d/firefox-vpn
-/etc/init.d/firefox-vpn enable
-/etc/init.d/firefox-vpn start
+chmod +x /etc/init.d/awmvpn
+/etc/init.d/awmvpn enable
+/etc/init.d/awmvpn start
 ```
 
 It shows in LuCI under **System → Startup**. Do not use `-app` (that is the desktop app's mode).
@@ -127,11 +127,11 @@ Only TCP to the ports 80, 443, 8080, and 8443 goes through (no calls or games ov
 
 ## 6. The whole network, with PassWall2
 
-With [PassWall2](https://github.com/Openwrt-Passwall/openwrt-passwall2) on the router, every device goes through Firefox VPN with no setting on the device, and PassWall2's own rules choose what goes through it and what goes direct.
+With [PassWall2](https://github.com/Openwrt-Passwall/openwrt-passwall2) on the router, every device goes through AWMVPN with no setting on the device, and PassWall2's own rules choose what goes through it and what goes direct.
 
 1. **Node List → Add:** protocol **Socks**, address `127.0.0.1`, port `10810`, and the proxy login from step 2.
 2. **Basic Settings:** choose this node and turn the main switch on.
-3. **Turn off Localhost Proxy** (the router's own traffic). Otherwise Firefox VPN's own connections go back into it in a loop, and nothing connects.
+3. **Turn off Localhost Proxy** (the router's own traffic). Otherwise AWMVPN's own connections go back into it in a loop, and nothing connects.
 4. **DNS → Remote DNS Protocol: DoH** (`https://1.1.1.1/dns-query`).
 5. Make your routing rules in PassWall2 (for example, your country's sites direct).
 
@@ -142,9 +142,9 @@ UDP still does not go through Mozilla. Menu names differ a little between versio
 **Update:**
 
 ```sh
-/etc/init.d/firefox-vpn stop
-# put the new firefox-vpn-core in /root/firefox-vpn (step 1)
-/etc/init.d/firefox-vpn start
+/etc/init.d/awmvpn stop
+# put the new awmvpn-core in /root/awmvpn (step 1)
+/etc/init.d/awmvpn start
 ```
 
 Accounts and settings stay.
@@ -152,20 +152,20 @@ Accounts and settings stay.
 **Remove:**
 
 ```sh
-/etc/init.d/firefox-vpn stop
-/etc/init.d/firefox-vpn disable
-rm /etc/init.d/firefox-vpn
-rm -r /root/firefox-vpn
+/etc/init.d/awmvpn stop
+/etc/init.d/awmvpn disable
+rm /etc/init.d/awmvpn
+rm -r /root/awmvpn
 ```
 
 ## Problems
 
 | Problem | Fix |
 |---|---|
-| Is it running? | `/root/firefox-vpn/firefox-vpn-core -status` |
-| See the log | `logread -e firefox-vpn` |
+| Is it running? | `/root/awmvpn/awmvpn-core -status` |
+| See the log | `logread -e awmvpn` |
 | Panel does not open | the service runs? `netstat -ltn \| grep 1082` shows `127.0.0.1:10820` instead of `0.0.0.0` or `:::`? then run step 2 again; use the router's address, not `127.0.0.1` |
-| Forgot the panel password | `/root/firefox-vpn/firefox-vpn-core -panel`, then `/etc/init.d/firefox-vpn restart` |
+| Forgot the panel password | `/root/awmvpn/awmvpn-core -panel`, then `/etc/init.d/awmvpn restart` |
 | Proxy port does not answer | add a working account (step 4); the panel's Overview says why it waits |
 | Accounts from the desktop app | stop the service, copy only the `user-data/accounts` folder (not `config.json`: it would replace the router's settings, and then step 2 is needed again), start it |
 | Slow or times out | panel: **Settings → Connection → Protocol: HTTP/2** |

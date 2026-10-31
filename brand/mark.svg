@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- AWMVPN's mark: an orange M and a grey A, after the Ai with Mase logo. -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- M: a vertical bar and a chevron. -->
+    <rect x="170" y="300" width="120" height="420" rx="60" fill="#E8772E" stroke="none"/>
+    <path d="M 230 340 L 410 540 L 590 340" stroke="#E8772E" stroke-width="120"/>
+    <!-- A: two legs, with the dot. -->
+    <path d="M 620 720 L 760 320 L 900 720" stroke="#B9B3AC" stroke-width="95"/>
+    <circle cx="760" cy="570" r="36" fill="#E8772E" stroke="none"/>
+  </g>
+</svg>

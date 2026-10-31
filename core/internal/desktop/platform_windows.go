@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/service"
+	"github.com/aiwithmase/awmvpn/core/internal/service"
 
 	"golang.org/x/sys/windows"
 )
@@ -92,6 +92,6 @@ func enableTerminalColors() bool {
 	if err := windows.SetConsoleMode(h, mode|windows.ENABLE_VIRTUAL_TERMINAL_PROCESSING|windows.ENABLE_PROCESSED_OUTPUT); err != nil {
 		return false
 	}
-	os.Stdout.WriteString("\x1b]0;Firefox VPN\x07")
+	os.Stdout.WriteString("\x1b]0;AWMVPN\x07")
 	return true
 }

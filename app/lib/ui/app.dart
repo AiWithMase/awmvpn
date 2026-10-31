@@ -22,7 +22,8 @@ import 'widgets.dart';
 
 ThemeData _theme(Brightness brightness, Locale locale) {
   final scheme = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF5B5BD6),
+    // AWMVPN's orange, from its logo (#E8772E).
+    seedColor: const Color(0xFFE8772E),
     brightness: brightness,
   );
   final dark = brightness == Brightness.dark;
@@ -34,18 +35,18 @@ ThemeData _theme(Brightness brightness, Locale locale) {
     colorScheme: scheme,
     fontFamily: font,
     scaffoldBackgroundColor: dark
-        ? const Color(0xFF111218)
-        : const Color(0xFFF5F5FA),
+        ? const Color(0xFF131110)
+        : const Color(0xFFFAF6F2),
     cardTheme: CardThemeData(
       elevation: 0,
-      color: dark ? const Color(0xFF1A1B23) : Colors.white,
+      color: dark ? const Color(0xFF1C1917) : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.4)),
       ),
     ),
     navigationRailTheme: NavigationRailThemeData(
-      backgroundColor: dark ? const Color(0xFF15161D) : const Color(0xFFECECF4),
+      backgroundColor: dark ? const Color(0xFF171412) : const Color(0xFFF2EBE4),
       // The menu's names semi-bold, the open page's bold.
       selectedLabelTextStyle: TextStyle(
         fontFamily: font,

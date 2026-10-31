@@ -11,12 +11,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/config"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/config"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
 )
 
 // The desktop TUN mode (system_proxy.mode "tun"): the TUN service
-// (cmd/firefox-vpn-tun) sends every TCP connection of the computer to a
+// (cmd/awmvpn-tun) sends every TCP connection of the computer to a
 // SOCKS5 listener of its own here, on loopback with a login made for this
 // process, so that another program holding proxy.listen never receives
 // them, a taken proxy port does not stop the TUN, and the user's proxy

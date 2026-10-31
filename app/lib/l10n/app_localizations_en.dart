@@ -10,7 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Firefox VPN';
+  String get appTitle => 'AWMVPN';
 
   @override
   String get navOverview => 'Overview';
@@ -1322,7 +1322,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The TUN service is newer than this app. Update the app to use TUN mode.';
 
   @override
-  String get tunBusy => 'Another copy of Firefox VPN is using TUN mode.';
+  String get tunBusy => 'Another copy of AWMVPN is using TUN mode.';
 
   @override
   String get tunInstall => 'Install';
@@ -1345,11 +1345,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tunInstallPrompt =>
-      'Firefox VPN wants to install the service for TUN mode.';
+      'AWMVPN wants to install the service for TUN mode.';
 
   @override
   String get tunRemovePrompt =>
-      'Firefox VPN wants to remove the service for TUN mode.';
+      'AWMVPN wants to remove the service for TUN mode.';
 
   @override
   String tunRemoveFailed(String error) {

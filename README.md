@@ -1,149 +1,163 @@
 <div align="center">
 
-**🇺🇸 English** &nbsp;/&nbsp; [🇨🇳 简体中文](docs/readme/README_zh.md) &nbsp;/&nbsp; [🇷🇺 Русский](docs/readme/README_ru.md) &nbsp;/&nbsp; [🇮🇷 فارسی](docs/readme/README_fa.md)
+<img src="brand/tile.png" width="128" alt="AWMVPN">
 
-</div>
-<br>
+<h1>AWMVPN</h1>
 
-<p align="center"><img src="docs/images/logo.png" width="128" alt="Firefox VPN"></p>
+<p><b>VPN رایگان، متن‌باز و چندزبانه — ساختهٔ <a href="https://github.com/AiWithMase">AiWithMase</a></b></p>
 
-<h1 align="center">Firefox VPN</h1>
+[![Downloads](https://img.shields.io/github/downloads/AiWithMase/awmvpn/total?style=flat-square&logo=github&label=Downloads)](https://github.com/AiWithMase/awmvpn/releases)
+[![Last Version](https://img.shields.io/github/v/release/AiWithMase/awmvpn?style=flat-square&label=Version)](https://github.com/AiWithMase/awmvpn/releases/latest)
+[![License](https://img.shields.io/github/license/AiWithMase/awmvpn?style=flat-square&label=License)](LICENSE)
 
-<div align="center">
-
-[![Downloads](https://img.shields.io/github/downloads/armanlife/firefox-vpn-client/total?style=flat-square&logo=github&label=Downloads)](https://github.com/armanlife/firefox-vpn-client/releases)
-[![Last Version](https://img.shields.io/github/v/release/armanlife/firefox-vpn-client?style=flat-square&label=Version)](https://github.com/armanlife/firefox-vpn-client/releases/latest)
-[![License](https://img.shields.io/github/license/armanlife/firefox-vpn-client?style=flat-square&label=License)](LICENSE)
+[یوتیوب](https://www.youtube.com/@AiWithMase) &nbsp;·&nbsp; [تلگرام](https://t.me/AiWithMase)
 
 </div>
 
-## What is Firefox VPN?
+---
 
-**Firefox VPN** is a free, open-source VPN that works with a Firefox Account. It carries your internet traffic through Mozilla's servers, on **Fastly**'s infrastructure, over secure **HTTP/2 and HTTP/3** tunnels.
+## AWMVPN چیست؟
 
-Every Firefox Account comes with **50 GB of free data a month**, and the **multi-account** feature multiplies it: when one runs out, the next connects **automatically**.
+**AWMVPN** یک کلاینت VPN رایگان و متن‌باز است که با **اکانت Firefox** کار می‌کند. ترافیک شما از طریق تونل‌های امن **HTTP/2 و HTTP/3** روی زیرساخت **Fastly** عبور می‌کند.
 
-For **Android, Windows, macOS, and Linux**; completely free, with no ads.
+هر اکانت Firefox در ماه **۵۰ گیگابایت** دادهٔ رایگان دارد و ویژگی **چند اکانتی** این حجم را چند برابر می‌کند: وقتی حجم یکی تمام شود، اپ به‌طور خودکار به اکانت بعدی می‌رود.
 
-<p align="center"><a href="https://raw.githubusercontent.com/armanlife/firefox-vpn-client/main/docs/screenshots/main.webp" target="_blank"><img src="docs/screenshots/main.webp" width="720" alt="Firefox VPN"></a></p>
+برای **اندروید، ویندوز، مک و لینوکس**؛ کاملاً رایگان، بدون تبلیغات.
 
-## 🚀 Main features
+> **نکتهٔ مهم:** AWMVPN یک کلاینت غیررسمی است و هیچ وابستگی، تأیید یا نمایندگی‌ای از سوی Mozilla ندارد. «Firefox» و «Mozilla» علامت‌های تجاری شرکت Mozilla Foundation هستند. برای استفاده از سرویس به یک اکانت Firefox نیاز دارید.
 
-✈️ Cross-platform: Android, Windows, macOS, and Linux
+## ✨ امکانات
 
-⭐ Very easy to use, with a simple interface
+- ✈️ چندسکویی: اندروید، ویندوز، مک و لینوکس
+- ⭐ رابط ساده و کاربرپسند، با پشتیبانی کامل از **فارسی و راست‌به‌چپ**
+- 🆓 رایگان: ۵۰ گیگابایت در ماه برای هر اکانت Firefox
+- ➕ چند اکانتی: وقتی حجم یکی تمام شد، بعدی خودکار وصل می‌شود
+- 🌐 انتخاب کشور با تست پینگ، یا انتخاب خودکار بهترین سرور
+- ⚡ اتصال سریع و پایدار روی HTTP/2 و HTTP/3
+- 🔀 مسیریابی هوشمند: سایت‌های داخلی مستقیم و سریع باز می‌شوند
+- 🔌 چند حالت اتصال (VPN و پروکسی)
+- 🔒 DNS رمزنگاری‌شده (DNS over HTTPS)
+- 🌍 ۱۵ زبان، با فارسی به‌عنوان زبان پیش‌فرض
+- 🌙 تم روشن و تاریک، با رنگ نارنجی برند
+- 🔄 بررسی و نصب خودکار به‌روزرسانی
+- 🛡 متن‌باز و قابل بازبینی (GPL-3.0)
 
-🆓 Free: 50 GB a month for every Firefox Account
-
-➕ Multi-account: when one account's data runs out, the next takes over automatically
-
-🌐 Mozilla's official servers: choose a country with a ping test, or let the app pick the best server
-
-⚡ Fast, stable connections over HTTP/2 and HTTP/3
-
-🔀 Smart routing: local sites open directly, faster and without using data
-
-🔌 Several connection modes (VPN and proxy)
-
-🔒 Encrypted DNS (DNS over HTTPS)
-
-🌍 15 languages, including English, Persian, Chinese, and Russian
-
-🌙 Light and dark themes
-
-🛡 Open source, secure, and community-driven
-
-🔄 Automatic update checks
-
-## 📸 Screenshots
-
-<p align="center">
-<img src="docs/screenshots/phone_01.webp" width="240" alt="Home">&nbsp;&nbsp;
-<img src="docs/screenshots/phone_02.webp" width="240" alt="Servers">&nbsp;&nbsp;
-<img src="docs/screenshots/phone_03.webp" width="240" alt="Settings">
-</p>
-
-## 📥 Download
+## 📥 دانلود
 
 <table>
 <thead>
-<tr><th>System</th><th>Download</th></tr>
+<tr><th>سیستم</th><th>دانلود</th></tr>
 </thead>
 <tbody>
-<tr><td>Android</td><td><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Android-universal.apk"><img src="https://img.shields.io/badge/APK-Universal-1a7f37?logo=android&logoColor=white" alt="APK Universal"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Android-arm64-v8a.apk"><img src="https://img.shields.io/badge/APK-ARMv8-2da44e?logo=android&logoColor=white" alt="APK ARMv8"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Android-armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK-ARMv7-4ac26b?logo=android&logoColor=white" alt="APK ARMv7"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Android-x86_64.apk"><img src="https://img.shields.io/badge/APK-x64-6fdd8b?logo=android&logoColor=white" alt="APK x64"></a></td></tr>
-<tr><td>Windows</td><td><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Windows-Setup-x64.exe"><img src="https://img.shields.io/badge/Setup-x64-0550ae?logo=windows&logoColor=white" alt="Setup x64"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Windows-x64.zip"><img src="https://img.shields.io/badge/Portable-x64-0969da" alt="Portable x64"></a></td></tr>
-<tr><td>macOS</td><td><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-macOS.dmg"><img src="https://img.shields.io/badge/DMG-Universal-24292f?logo=apple&logoColor=white" alt="DMG Universal"></a></td></tr>
-<tr><td rowspan="2">Linux</td><td><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Linux-amd64.tar.gz"><img src="https://img.shields.io/badge/App-amd64-e36209?logo=linux&logoColor=white" alt="App amd64"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/Firefox-VPN-Linux-arm64.tar.gz"><img src="https://img.shields.io/badge/App-ARM64-e36209?logo=linux&logoColor=white" alt="App ARM64"></a></td></tr>
-<tr><td><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/firefox-vpn-core-linux-amd64.tar.gz"><img src="https://img.shields.io/badge/Core-amd64-f0883e?logo=linux&logoColor=white" alt="Core amd64"></a><br><a href="https://github.com/armanlife/firefox-vpn-client/releases/latest/download/firefox-vpn-core-linux-arm64.tar.gz"><img src="https://img.shields.io/badge/Core-ARM64-f6a35e?logo=linux&logoColor=white" alt="Core ARM64"></a></td></tr>
+<tr><td>اندروید</td><td><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Android-universal.apk"><img src="https://img.shields.io/badge/APK-Universal-1a7f37?logo=android&logoColor=white" alt="APK Universal"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Android-arm64-v8a.apk"><img src="https://img.shields.io/badge/APK-ARMv8-2da44e?logo=android&logoColor=white" alt="APK ARMv8"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Android-armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK-ARMv7-4ac26b?logo=android&logoColor=white" alt="APK ARMv7"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Android-x86_64.apk"><img src="https://img.shields.io/badge/APK-x64-6fdd8b?logo=android&logoColor=white" alt="APK x64"></a></td></tr>
+<tr><td>ویندوز</td><td><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Windows-Setup-x64.exe"><img src="https://img.shields.io/badge/Setup-x64-0550ae?logo=windows&logoColor=white" alt="Setup x64"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Windows-x64.zip"><img src="https://img.shields.io/badge/Portable-x64-0969da" alt="Portable x64"></a></td></tr>
+<tr><td>مک</td><td><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-macOS.dmg"><img src="https://img.shields.io/badge/DMG-Universal-24292f?logo=apple&logoColor=white" alt="DMG Universal"></a></td></tr>
+<tr><td rowspan="2">لینوکس</td><td><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Linux-amd64.tar.gz"><img src="https://img.shields.io/badge/App-amd64-e36209?logo=linux&logoColor=white" alt="App amd64"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/AWMVPN-Linux-arm64.tar.gz"><img src="https://img.shields.io/badge/App-ARM64-e36209?logo=linux&logoColor=white" alt="App ARM64"></a></td></tr>
+<tr><td><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-amd64.tar.gz"><img src="https://img.shields.io/badge/Core-amd64-f0883e?logo=linux&logoColor=white" alt="Core amd64"></a><br><a href="https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-arm64.tar.gz"><img src="https://img.shields.io/badge/Core-ARM64-f6a35e?logo=linux&logoColor=white" alt="Core ARM64"></a></td></tr>
 </tbody>
 </table>
 
-**Which file should I download?**
+**کدام فایل را دانلود کنم؟**
 
-- **Android:** if you are not sure, take **Universal**; it installs on every phone. **ARMv8** is for most of today's phones and is smaller.
-- **Windows:** **Setup** is a normal installer; **Portable** needs no install and runs from any folder.
-- **Linux:** **App** for a Linux desktop (with a graphical environment); **Core** for a server (without a graphical environment, with a web panel).
+- **اندروید:** اگر مطمئن نیستی، **Universal** را بگیر؛ روی همهٔ گوشی‌ها نصب می‌شود. **ARMv8** برای بیشتر گوشی‌های امروزی است و حجم کمتری دارد.
+- **ویندوز:** **Setup** نصب‌کنندهٔ معمول است؛ **Portable** بدون نصب و از هر پوشه‌ای اجرا می‌شود.
+- **لینوکس:** **App** برای دسکتاپ لینوکس (با محیط گرافیکی)؛ **Core** برای سرور (بدون محیط گرافیکی، با پنل وب).
 
-## 💻 Install and update on Linux and macOS
+## 💻 نصب و به‌روزرسانی در لینوکس و مک
 
-> Windows and Android users don't need this section: take the installer from the "Download" table above.
+> کاربران ویندوز و اندروید به این بخش نیازی ندارند: از جدول «دانلود» بالا استفاده کن.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/armanlife/firefox-vpn-client/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AiWithMase/awmvpn/main/install.sh | bash
 ```
 
-### 🌐 Web panel
+### 🌐 پنل وب
 
-For Linux servers, Firefox VPN has a **web panel** that opens in any browser and has everything the app has: managing accounts and data, choosing a server and testing delay, the connection test, the live log, and every setting.
+برای سرورهای لینوکس، AWMVPN یک **پنل وب** دارد که در هر مرورگری باز می‌شود و همهٔ کارهای اپ را انجام می‌دهد: مدیریت اکانت‌ها و حجم، انتخاب سرور و تست تأخیر، تست اتصال، لاگ زنده و همهٔ تنظیمات.
 
-<p align="center"><img src="docs/screenshots/web.webp" width="720" alt="Web panel"></p>
+- **آدرس پنل:** `http://SERVER-IP:10820/app/`، با نام کاربری و رمز عبور. آدرس دقیق در پایان نصب نمایش داده می‌شود.
+- **پروکسی:** SOCKS5 و HTTP روی پورت `10810`، با نام کاربری و رمز عبور مستقل.
 
-- **Panel address:** `http://SERVER-IP:10820/app/`, with a username and password. The exact address is shown at the end of the install.
-- **Proxy:** SOCKS5 and HTTP on port `10810`, with a username and password of its own.
+### ⌨️ مدیریت از ترمینال
 
-### ⌨️ Managing from the terminal
-
-On the server, run `sudo firefox-vpn` to open the management menu:
+روی سرور، دستور `sudo awmvpn` را اجرا کن تا منوی مدیریت باز شود:
 
 ```text
-$ sudo firefox-vpn
+$ sudo awmvpn
 
-  Firefox VPN
+  AWMVPN
   ────────────────────────────────────────────────────────────────────────────
    0) Exit
   ────────────────────────────────────────────────────────────────────────────
-   1) Update                                   firefox-vpn update
-   2) Uninstall                                firefox-vpn uninstall
+   1) Update                                   awmvpn update
+   2) Uninstall                                awmvpn uninstall
   ────────────────────────────────────────────────────────────────────────────
-   3) Set panel login                          firefox-vpn panel
-   4) View panel info                          firefox-vpn panel-info
+   3) Set panel login                          awmvpn panel
+   4) View panel info                          awmvpn panel-info
   ────────────────────────────────────────────────────────────────────────────
-   5) Status                                   firefox-vpn status
-   6) Start                                    firefox-vpn start
-   7) Stop                                     firefox-vpn stop
-   8) Restart                                  firefox-vpn restart
-   9) Show the log                             firefox-vpn logs
+   5) Status                                   awmvpn status
+   6) Start                                    awmvpn start
+   7) Stop                                     awmvpn stop
+   8) Restart                                  awmvpn restart
+   9) Show the log                             awmvpn logs
   ────────────────────────────────────────────────────────────────────────────
-  10) Enable autostart                         firefox-vpn enable
-  11) Disable autostart                        firefox-vpn disable
+  10) Enable autostart                         awmvpn enable
+  11) Disable autostart                        awmvpn disable
   ────────────────────────────────────────────────────────────────────────────
-  12) Add a Firefox Account                    firefox-vpn add-account
-  13) List the accounts                        firefox-vpn list-accounts
+  12) Add a Firefox Account                    awmvpn add-account
+  13) List the accounts                        awmvpn list-accounts
   ────────────────────────────────────────────────────────────────────────────
   Enter a number [0-13]:
 ```
 
-## OpenWrt routers
+## 📡 روترهای OpenWrt
 
-To install on an OpenWrt router, see the [OpenWrt guide](docs/OPENWRT.md).
+برای نصب روی روتر OpenWrt، [راهنمای OpenWrt](docs/OPENWRT.md) را ببین.
 
-## Known limitations
+## ⚠️ محدودیت‌های شناخته‌شده
 
 <details>
-<summary>What Mozilla's servers do not carry</summary>
+<summary>چیزهایی که سرورهای Mozilla منتقل نمی‌کنند</summary>
 
-- **TCP only, no UDP:** voice and video calls in some apps, online games, and other UDP traffic do not go through. Browsers and most apps work normally.
-- **Web ports only:** Mozilla connects only to ports 80, 443, 8080, and 8443. Other ports, such as mail (25, 465, 587, 993) and SSH (22), are refused. Git over SSH to GitHub is the exception: it goes through port 443 by itself.
-- **Android notifications:** Google's push service uses port 5228, so with the VPN on, some apps' notifications (WhatsApp, Telegram, and others) may arrive only when the app is opened.
+- **فقط TCP، بدون UDP:** تماس صوتی و تصویری در بعضی اپ‌ها، بازی‌های آنلاین و سایر ترافیک UDP عبور نمی‌کنند. مرورگرها و بیشتر اپ‌ها عادی کار می‌کنند.
+- **فقط پورت‌های وب:** اتصال تنها روی پورت‌های 80، 443، 8080 و 8443 برقرار می‌شود. پورت‌های دیگر، مثل ایمیل (25، 465، 587، 993) و SSH (22)، رد می‌شوند. استثنا: Git روی SSH به GitHub خودکار از پورت 443 می‌رود.
+- **اعلان‌های اندروید:** سرویس پوش Google از پورت 5228 استفاده می‌کند، بنابراین با روشن بودن VPN، اعلان بعضی اپ‌ها (واتس‌اپ، تلگرام و دیگران) ممکن است فقط هنگام باز کردن اپ برسد.
+
+</details>
+
+## 🛠 ساخت از سورس
+
+```bash
+# هستهٔ Go
+cd core && go build ./...
+
+# اپ Flutter (به Flutter 3.47.7 و Visual Studio نیاز دارد)
+cd app && flutter pub get && flutter analyze && flutter test
+```
+
+بیلدهای رسمی روی **GitHub Actions** انجام می‌شوند: هر تگ `v<version>` (هماهنگ با `version` در `app/pubspec.yaml`) بیلد همهٔ سیستم‌ها را می‌سازد و در Releases منتشر می‌کند. جزئیات در [.github/workflows/build.yml](.github/workflows/build.yml).
+
+آیکون‌ها از `brand/tile.svg` و `brand/mark.svg` ساخته می‌شوند:
+
+```bash
+python app/tool/app_icons.py   # به ImageMagick 7 نیاز دارد
+```
+
+## 📄 مجوز و ارجاع
+
+AWMVPN بر پایهٔ پروژهٔ [Firefox VPN](https://github.com/armanlife/firefox-vpn-client) اثر Arman ساخته شده و تحت **GNU GPL v3** منتشر می‌شود. متن مجوز در [LICENSE](LICENSE) و ارجاع‌ها در [NOTICE](NOTICE) آمده است.
+
+اگر نسخهٔ تغییریافته را توزیع می‌کنی، باید سورس‌کد آن را هم تحت همین مجوز منتشر کنی.
+
+---
+
+<details>
+<summary>English</summary>
+
+**AWMVPN** is a free, open-source VPN client for Windows, macOS, Linux, and Android. It signs in with a Firefox Account and tunnels traffic over HTTP/2 and HTTP/3. Each account includes 50 GB a month, and multi-account support pools several.
+
+It is an unofficial client, not affiliated with or endorsed by Mozilla. "Firefox" and "Mozilla" are trademarks of the Mozilla Foundation.
+
+Built by [AiWithMase](https://www.youtube.com/@AiWithMase) · [Telegram](https://t.me/AiWithMase). A fork of [Firefox VPN](https://github.com/armanlife/firefox-vpn-client), licensed under GPL-3.0.
 
 </details>

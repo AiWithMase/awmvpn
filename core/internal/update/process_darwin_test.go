@@ -25,7 +25,7 @@ func TestTheAppOpensWithItsArguments(t *testing.T) {
 	<key>CFBundleExecutable</key>
 	<string>run</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.arman.firefoxvpn.updatetest</string>
+	<string>com.aiwithmase.awmvpn.updatetest</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 </dict>

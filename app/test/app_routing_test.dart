@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firefox_vpn/core/android_core.dart';
+import 'package:awmvpn/core/android_core.dart';
 
 AppRouting routing() => AppRouting(
   onlyChosen: false,

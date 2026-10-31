@@ -4,8 +4,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/config"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/config"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
 )
 
 // Auto-connect: the desktop app, started with the computer and set to

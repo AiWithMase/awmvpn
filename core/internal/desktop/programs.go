@@ -4,15 +4,15 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/service"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/service"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
 )
 
 // ownPrograms are this app's own executables, which never skip the VPN by
 // choice.
 var ownPrograms = map[string]bool{
-	"firefox-vpn.exe": true, "firefox-vpn-core.exe": true, "firefox-vpn-tun.exe": true,
-	"firefox-vpn": true, "firefox-vpn-core": true, "firefox-vpn-tun": true,
+	"awmvpn.exe": true, "awmvpn-core.exe": true, "awmvpn-tun.exe": true,
+	"awmvpn": true, "awmvpn-core": true, "awmvpn-tun": true,
 }
 
 // runningPrograms are the programs running on this computer, for the TUN

@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
 )
 
 const (

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
 )
 
 // Programs that skip the VPN (tunapi.Program, the core's tun.programs): the

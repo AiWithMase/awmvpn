@@ -3,7 +3,7 @@
 # Actions), as a user's copy goes through it: the app that
 # scripts/build-macos.sh built (its tar.gz in dist/) goes to /Applications
 # as version <v> and updates itself to <v+1> from a test release on
-# loopback (FIREFOX_VPN_UPDATE_SERVER). The app finds the release through
+# loopback (AWMVPN_UPDATE_SERVER). The app finds the release through
 # updates.json a minute after it starts, its core downloads it in the
 # background, the next start (by the app's LaunchAgent, as at sign-in)
 # installs it, and the new version opens through Launch Services, in the
@@ -20,10 +20,10 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 version="$(sed -n 's/^version:[[:space:]]*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' "$root/app/pubspec.yaml")"
 next="${version%.*}.$((${version##*.} + 1))"
-module=github.com/armanlife/firefox-vpn-client/core
+module=github.com/aiwithmase/awmvpn/core
 out="${1:-$root/dist/update-test}"
-app="/Applications/Firefox VPN.app"
-data="$HOME/Library/Application Support/Firefox VPN Client"
+app="/Applications/AWMVPN.app"
+data="$HOME/Library/Application Support/AWMVPN Client"
 server="http://127.0.0.1:18080"
 work="$(mktemp -d)"
 mkdir -p "$out"
@@ -31,7 +31,7 @@ mkdir -p "$out"
 
 # The app's LaunchAgent, as the app writes it for starting at sign-in
 # (app/macos/Runner/MainFlutterWindow.swift).
-label=com.arman.firefoxvpn
+label=com.aiwithmase.awmvpn
 agent="$HOME/Library/LaunchAgents/$label.plist"
 
 server_pid=""
@@ -67,29 +67,29 @@ arch="$(uname -m)"
 for v in "$version" "$next"; do
   (cd "$root/core" && CGO_ENABLED=0 GOOS=darwin GOARCH="$arch" go build -trimpath \
     -ldflags "-s -w -X $module/internal/version.Current=$v -X $module/internal/signing.Key=$public" \
-    -o "$work/core-$v" ./cmd/firefox-vpn-core)
+    -o "$work/core-$v" ./cmd/awmvpn-core)
 done
 
 # bundle DIR VERSION: the built app in DIR with that version's core, sealed
 # again as the build seals it.
 bundle() {
   mkdir -p "$1"
-  tar -xzf "$root/dist/Firefox-VPN-$version-macOS.tar.gz" -C "$1"
-  cp "$work/core-$2" "$1/Firefox VPN.app/Contents/MacOS/firefox-vpn-core"
-  codesign --force --sign - "$1/Firefox VPN.app/Contents/MacOS/firefox-vpn-core"
-  codesign --force --sign - "$1/Firefox VPN.app"
+  tar -xzf "$root/dist/AWMVPN-$version-macOS.tar.gz" -C "$1"
+  cp "$work/core-$2" "$1/AWMVPN.app/Contents/MacOS/awmvpn-core"
+  codesign --force --sign - "$1/AWMVPN.app/Contents/MacOS/awmvpn-core"
+  codesign --force --sign - "$1/AWMVPN.app"
 }
 bundle "$work/old" "$version"
 bundle "$work/new" "$next"
-mv "$work/old/Firefox VPN.app" "$app"
+mv "$work/old/AWMVPN.app" "$app"
 
 # The test release, as the release job makes one; updates.json, which
 # offers it to macOS; and GitHub's answer for the latest release, which the
 # app asks only without updates.json.
 release="$work/www/releases/download/v$next"
 mkdir -p "$release"
-COPYFILE_DISABLE=1 tar --no-mac-metadata -czf "$release/Firefox-VPN-$next-macOS.tar.gz" -C "$work/new" "Firefox VPN.app"
-(cd "$release" && shasum -a 256 "Firefox-VPN-$next-macOS.tar.gz" >SHA256SUMS.txt)
+COPYFILE_DISABLE=1 tar --no-mac-metadata -czf "$release/AWMVPN-$next-macOS.tar.gz" -C "$work/new" "AWMVPN.app"
+(cd "$release" && shasum -a 256 "AWMVPN-$next-macOS.tar.gz" >SHA256SUMS.txt)
 (cd "$root/core" && go run ./tools/sign -key "$work/test.signing-key" "$release/SHA256SUMS.txt")
 printf '{"macos": "%s"}\n' "$next" >"$work/www/updates.json"
 printf '{"tag_name": "v%s", "html_url": "%s/releases/tag/v%s"}\n' "$next" "$server" "$next" >"$work/www/releases/latest"
@@ -97,7 +97,7 @@ python3 -m http.server 18080 --bind 127.0.0.1 --directory "$work/www" >"$out/ser
 server_pid=$!
 
 echo "== $version finds $next and downloads it"
-FIREFOX_VPN_UPDATE_SERVER="$server" "$app/Contents/MacOS/Firefox VPN" >>"$out/app.log" 2>&1 &
+AWMVPN_UPDATE_SERVER="$server" "$app/Contents/MacOS/AWMVPN" >>"$out/app.log" 2>&1 &
 first=$!
 wait_for "the download" 240 logged "update: version=$next downloaded"
 grep -q "GET /updates.json" "$out/server.log" || { echo "the app did not read updates.json" >&2; exit 1; }
@@ -119,7 +119,7 @@ cat >"$agent" <<EOF
 	<string>$label</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>$app/Contents/MacOS/Firefox VPN</string>
+		<string>$app/Contents/MacOS/AWMVPN</string>
 		<string>--autostart</string>
 	</array>
 	<key>RunAtLoad</key>
@@ -134,10 +134,10 @@ wait_for "the new version's start" 240 logged "update: installed from=$version t
 sleep 5
 screencapture -x "$out/updated.png" || true
 
-got="$("$app/Contents/MacOS/firefox-vpn-core" -version)"
+got="$("$app/Contents/MacOS/awmvpn-core" -version)"
 [ "$got" = "$next" ] || { echo "the app's core is $got, not $next" >&2; exit 1; }
 # Started again as it was: in the menu bar.
-pgrep -fl "^$app/Contents/MacOS/Firefox VPN --autostart" || { echo "the new version does not run" >&2; exit 1; }
+pgrep -fl "^$app/Contents/MacOS/AWMVPN --autostart" || { echo "the new version does not run" >&2; exit 1; }
 if logged "opening the app failed"; then
   echo "Launch Services did not open the new version; the core started it" >&2
   exit 1

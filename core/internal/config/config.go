@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/guardian"
-	"github.com/armanlife/firefox-vpn-client/core/internal/resolver"
-	"github.com/armanlife/firefox-vpn-client/core/internal/routing"
-	"github.com/armanlife/firefox-vpn-client/core/internal/securefile"
+	"github.com/aiwithmase/awmvpn/core/internal/guardian"
+	"github.com/aiwithmase/awmvpn/core/internal/resolver"
+	"github.com/aiwithmase/awmvpn/core/internal/routing"
+	"github.com/aiwithmase/awmvpn/core/internal/securefile"
 )
 
 // CurrentVersion is the config schema version written by this build.
@@ -133,7 +133,7 @@ func CleanTunPrograms(programs []TunProgram) []TunProgram {
 //	clear  turn the system proxy off, once when chosen (a setting this
 //	       program made is restored first)
 //	tun    leave the setting alone (restoring this program's) and send every
-//	       app's TCP through the TUN service (cmd/firefox-vpn-tun) while the
+//	       app's TCP through the TUN service (cmd/awmvpn-tun) while the
 //	       proxy is on; only the desktop app's core does it
 type SystemProxy struct {
 	Mode string `json:"mode"`
@@ -579,14 +579,14 @@ const DataDirName = "user-data"
 // (inside the macOS bundle). A core started from either place uses the
 // app's data folder, so it sees the app's accounts and settings.
 const (
-	AppFolder      = "Firefox VPN Client"
+	AppFolder      = "AWMVPN Client"
 	PortableMarker = "portable"
 	CoreFolder     = "core"
 )
 
 // appExecutables are the desktop app's executables: Windows, Linux, and
-// macOS (inside Firefox VPN.app/Contents/MacOS).
-var appExecutables = []string{"firefox-vpn.exe", "firefox-vpn", "Firefox VPN"}
+// macOS (inside AWMVPN.app/Contents/MacOS).
+var appExecutables = []string{"awmvpn.exe", "awmvpn", "AWMVPN"}
 
 // DefaultDataDir returns the data folder: DataDirName next to the running
 // executable (symlinks resolved, so a linked binary still uses its real
@@ -668,7 +668,7 @@ func defaultDataDirFor(exeDir, goos string, getenv func(string) string, exists f
 		if base == "" {
 			base = filepath.Join(home, ".local", "share")
 		}
-		return filepath.Join(base, "firefox-vpn-client")
+		return filepath.Join(base, "awmvpn-client")
 	}
 }
 

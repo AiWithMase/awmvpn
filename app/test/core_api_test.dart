@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firefox_vpn/core/core_api.dart';
+import 'package:awmvpn/core/core_api.dart';
 
 void main() {
   group('CoreApi', () {
@@ -139,21 +139,21 @@ void main() {
         Map<String, String>? env,
       }) => CoreLocator.dataDirFor(
         args: const [],
-        exeDir: r'D:\dist\Firefox-VPN-1.3',
+        exeDir: r'D:\dist\AWMVPN-1.3',
         portable: portable,
         env: env ?? {'LOCALAPPDATA': r'C:\Users\u\AppData\Local'},
         os: os,
       );
       // Windows: always beside the app.
-      expect(dir(), r'D:\dist\Firefox-VPN-1.3\user-data');
-      expect(dir(portable: true), r'D:\dist\Firefox-VPN-1.3\user-data');
+      expect(dir(), r'D:\dist\AWMVPN-1.3\user-data');
+      expect(dir(portable: true), r'D:\dist\AWMVPN-1.3\user-data');
       expect(
         dir(os: 'macos', env: {'HOME': '/Users/u'}),
-        '/Users/u/Library/Application Support/Firefox VPN Client',
+        '/Users/u/Library/Application Support/AWMVPN Client',
       );
       expect(
         dir(os: 'linux', env: {'HOME': '/home/u'}),
-        '/home/u/.local/share/firefox-vpn-client',
+        '/home/u/.local/share/awmvpn-client',
       );
     });
 

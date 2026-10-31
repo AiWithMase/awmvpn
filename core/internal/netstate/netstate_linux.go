@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
 )
 
 // connected looks for a default route (IPv4 or IPv6) on an interface

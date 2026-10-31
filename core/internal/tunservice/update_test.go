@@ -8,13 +8,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/signing"
+	"github.com/aiwithmase/awmvpn/core/internal/signing"
 )
 
 // signedFile writes an executable and its signature by priv.
 func signedFile(t *testing.T, data []byte, priv ed25519.PrivateKey) string {
 	t.Helper()
-	path := filepath.Join(t.TempDir(), "firefox-vpn-tun.exe")
+	path := filepath.Join(t.TempDir(), "awmvpn-tun.exe")
 	if err := os.WriteFile(path, data, 0o600); err != nil {
 		t.Fatal(err)
 	}
@@ -73,12 +73,12 @@ func TestABuildWithoutAKeyTakesNoUpdates(t *testing.T) {
 }
 
 func TestTheSignatureOfAMacAppsExecutableIsInItsResources(t *testing.T) {
-	app := filepath.Join("Applications", "Firefox VPN.app", "Contents")
+	app := filepath.Join("Applications", "AWMVPN.app", "Contents")
 	for exe, want := range map[string]string{
-		filepath.Join(app, "MacOS", "firefox-vpn-tun"): filepath.Join(app, "Resources", "firefox-vpn-tun.sig"),
-		filepath.Join("opt", "firefox-vpn-tun", "x"):   filepath.Join("opt", "firefox-vpn-tun", "x.sig"),
-		filepath.Join("core", "firefox-vpn-tun.exe"):   filepath.Join("core", "firefox-vpn-tun.exe.sig"),
-		filepath.Join("MacOS", "firefox-vpn-tun"):      filepath.Join("MacOS", "firefox-vpn-tun.sig"),
+		filepath.Join(app, "MacOS", "awmvpn-tun"): filepath.Join(app, "Resources", "awmvpn-tun.sig"),
+		filepath.Join("opt", "awmvpn-tun", "x"):   filepath.Join("opt", "awmvpn-tun", "x.sig"),
+		filepath.Join("core", "awmvpn-tun.exe"):   filepath.Join("core", "awmvpn-tun.exe.sig"),
+		filepath.Join("MacOS", "awmvpn-tun"):      filepath.Join("MacOS", "awmvpn-tun.sig"),
 	} {
 		if got := SignatureFile(exe); got != want {
 			t.Errorf("SignatureFile(%s) = %s, want %s", exe, got, want)

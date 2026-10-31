@@ -3,19 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firefox_vpn/app_info.dart';
-import 'package:firefox_vpn/app_settings.dart';
-import 'package:firefox_vpn/core/core_api.dart';
-import 'package:firefox_vpn/core/core_controller.dart';
-import 'package:firefox_vpn/core/models.dart';
-import 'package:firefox_vpn/core/tun_service.dart';
-import 'package:firefox_vpn/core/updates.dart';
-import 'package:firefox_vpn/desktop/close_dialog.dart';
-import 'package:firefox_vpn/l10n/app_localizations.dart';
-import 'package:firefox_vpn/ui/app.dart';
-import 'package:firefox_vpn/ui/settings_page.dart' show pickProgramFile;
-import 'package:firefox_vpn/ui/signin_dialog.dart';
-import 'package:firefox_vpn/ui/widgets.dart';
+import 'package:awmvpn/app_info.dart';
+import 'package:awmvpn/app_settings.dart';
+import 'package:awmvpn/core/core_api.dart';
+import 'package:awmvpn/core/core_controller.dart';
+import 'package:awmvpn/core/models.dart';
+import 'package:awmvpn/core/tun_service.dart';
+import 'package:awmvpn/core/updates.dart';
+import 'package:awmvpn/desktop/close_dialog.dart';
+import 'package:awmvpn/l10n/app_localizations.dart';
+import 'package:awmvpn/ui/app.dart';
+import 'package:awmvpn/ui/settings_page.dart' show pickProgramFile;
+import 'package:awmvpn/ui/signin_dialog.dart';
+import 'package:awmvpn/ui/widgets.dart';
 
 Map<String, Object?> _account(
   String id,
@@ -372,7 +372,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -432,18 +432,18 @@ void main() {
     final core = CoreController(
       () async => throw const CoreUnavailable(
         CoreProblem.noCore,
-        'C:/x/firefox-vpn-core.exe',
+        'C:/x/awmvpn-core.exe',
       ),
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
     expect(find.text("Can't reach the core"), findsOneWidget);
     expect(
       find.text(
-        'The core program was not found next to the app (C:/x/firefox-vpn-core.exe).',
+        'The core program was not found next to the app (C:/x/awmvpn-core.exe).',
       ),
       findsOneWidget,
     );
@@ -494,8 +494,8 @@ void main() {
       () async => FakeApi(),
       pollInterval: const Duration(hours: 1),
     );
-    // No language chosen: first run, or "System default".
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    // "System default": the app follows the system's language.
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = ''));
     core.start();
     await tester.pumpAndSettle();
 
@@ -853,7 +853,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -925,7 +925,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    final settings = AppSettings();
+    final settings = AppSettings()..language = 'en';
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
     await tester.pumpAndSettle();
@@ -1015,7 +1015,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1065,7 +1065,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1122,7 +1122,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1172,7 +1172,11 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    // "System default": this test opens the language dialog, whose current
+    // choice is that; the test's system locale is English.
+    await tester.pumpWidget(
+      VpnApp(core: core, settings: AppSettings()..language = ''),
+    );
     core.start();
     await tester.pumpAndSettle();
 
@@ -1299,7 +1303,7 @@ void main() {
       () async => FakeApi(),
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1403,7 +1407,7 @@ void main() {
       pollInterval: const Duration(hours: 1),
       turnOn: (on) async => api.on = on,
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1471,7 +1475,7 @@ void main() {
       pollInterval: const Duration(hours: 1),
       turnOn: (on) async => api.on = on,
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1516,7 +1520,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    final settings = AppSettings();
+    final settings = AppSettings()..language = 'en';
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
     await tester.pumpAndSettle();
@@ -1550,7 +1554,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
 
@@ -1581,7 +1585,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    final settings = AppSettings();
+    final settings = AppSettings()..language = 'en';
     await tester.pumpWidget(VpnApp(core: core, settings: settings));
     core.start();
     await tester.pumpAndSettle();
@@ -1626,7 +1630,7 @@ void main() {
         () async => api,
         pollInterval: const Duration(hours: 1),
       );
-      await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+      await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
       core.start();
       await tester.pumpAndSettle();
       expect(
@@ -1672,7 +1676,7 @@ void main() {
       () async => api,
       pollInterval: const Duration(hours: 1),
     );
-    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+    await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
     core.start();
     await tester.pumpAndSettle();
     expect(find.byType(NavigationRail), findsOneWidget);
@@ -1722,7 +1726,7 @@ void main() {
         () async => api,
         pollInterval: const Duration(hours: 1),
       );
-      final settings = AppSettings()..autoUpdate = autoUpdate;
+      final settings = AppSettings()..language = 'en'..autoUpdate = autoUpdate;
       Updates.start(core, settings, args: args);
       Updates.available.value = found;
       await tester.pumpWidget(VpnApp(core: core, settings: settings));
@@ -1959,7 +1963,7 @@ void main() {
         tunService: service,
       );
       await tester.pumpWidget(
-        VpnApp(core: core, settings: settings ?? AppSettings()),
+        VpnApp(core: core, settings: settings ?? (AppSettings()..language = 'en')),
       );
       core.start();
       await tester.pumpAndSettle();
@@ -1980,7 +1984,7 @@ void main() {
         () async => FakeApi(),
         pollInterval: const Duration(hours: 1),
       );
-      await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()));
+      await tester.pumpWidget(VpnApp(core: core, settings: AppSettings()..language = 'en'));
       core.start();
       await tester.pumpAndSettle();
       expect(find.text('System proxy'), findsWidgets);
@@ -2000,7 +2004,7 @@ void main() {
       // The reason macOS' prompt shows, in the app's language.
       expect(
         service.prompt,
-        'Firefox VPN wants to install the service for TUN mode.',
+        'AWMVPN wants to install the service for TUN mode.',
       );
       expect(api.mode, 'tun');
       api.tun = {'state': 'on', 'installed': true};
@@ -2073,7 +2077,7 @@ void main() {
       expect(service.removals, 1);
       expect(
         service.prompt,
-        'Firefox VPN wants to remove the service for TUN mode.',
+        'AWMVPN wants to remove the service for TUN mode.',
       );
       expect(find.text('The TUN service was removed.'), findsOneWidget);
       expect(api.tun?['installed'], isFalse);
@@ -2211,7 +2215,7 @@ void main() {
     }, variant: TargetPlatformVariant.only(TargetPlatform.windows));
 
     testWidgets('a refused call offers to send it directly', (tester) async {
-      final settings = AppSettings();
+      final settings = AppSettings()..language = 'en';
       final (api, core, _) = await pumpTun(
         tester,
         mode: 'tun',
@@ -2318,7 +2322,7 @@ void main() {
           'The TUN service is newer than this app. Update the app to use TUN mode.',
           null,
         ),
-        ('busy', 'Another copy of Firefox VPN is using TUN mode.', null),
+        ('busy', 'Another copy of AWMVPN is using TUN mode.', null),
         ('lost', 'TUN mode stopped unexpectedly. Trying again…', null),
         ('failed', "TUN mode couldn't start. Trying again…", null),
       ]) {
@@ -2382,7 +2386,7 @@ class FakeTunService implements TunService {
   String? prompt;
 
   @override
-  String get executable => 'firefox-vpn-tun.exe';
+  String get executable => 'awmvpn-tun.exe';
 
   @override
   Future<TunServiceResult> install({String? prompt}) async {

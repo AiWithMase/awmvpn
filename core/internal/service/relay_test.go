@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/config"
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/config"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
 )
 
 type fixtureTransport struct{}

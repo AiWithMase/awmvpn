@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tun"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunstack"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/tun"
+	"github.com/aiwithmase/awmvpn/core/internal/tunstack"
 )
 
 // The UDP of a program that skips the VPN goes directly: each packet to its

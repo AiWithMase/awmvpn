@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
-	"github.com/armanlife/firefox-vpn-client/core/internal/update"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/update"
 )
 
 // The desktop app's updates (internal/update): the app finds a newer

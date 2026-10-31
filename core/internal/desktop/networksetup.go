@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/securefile"
+	"github.com/aiwithmase/awmvpn/core/internal/securefile"
 )
 
 // The macOS proxy setting, per network service (Wi-Fi, Ethernet, ...), read

@@ -1,4 +1,4 @@
-module github.com/armanlife/firefox-vpn-client/core
+module github.com/aiwithmase/awmvpn/core
 
 go 1.27.2
 

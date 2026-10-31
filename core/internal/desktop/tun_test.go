@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/config"
-	"github.com/armanlife/firefox-vpn-client/core/internal/service"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/config"
+	"github.com/aiwithmase/awmvpn/core/internal/service"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // fakeHost is the daemon as tunSync sees it, recording what it was told.
@@ -174,7 +174,7 @@ func session(t *testing.T, c *tunapi.Conn, closed chan<- struct{}) {
 	if open.Proxy != "127.0.0.1:5555" || open.Username != "tun" || open.Password != "secret" {
 		t.Errorf("open %+v", open)
 	}
-	c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "Firefox VPN", Index: 7, LUID: 9}})
+	c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "AWMVPN", Index: 7, LUID: 9}})
 	expect(t, c, tunapi.TypeRoute)
 	c.Send(tunapi.Message{Type: tunapi.TypeRouted})
 	m, err := c.Receive()
@@ -230,7 +230,7 @@ func TestTheServiceGetsTheProgramsThatSkipTheVPN(t *testing.T) {
 		if want := []tunapi.Program{{Name: "steam.exe"}}; !slices.Equal(open.Programs, want) {
 			t.Errorf("opened with %+v, want %+v", open.Programs, want)
 		}
-		c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "Firefox VPN", Index: 7, LUID: 9}})
+		c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "AWMVPN", Index: 7, LUID: 9}})
 		expect(t, c, tunapi.TypeRoute)
 		c.Send(tunapi.Message{Type: tunapi.TypeRouted})
 		c.Send(tunapi.Message{Type: tunapi.TypeUDPRefused, Program: "Discord.exe", Path: `C:\Apps\Discord.exe`})
@@ -272,7 +272,7 @@ func TestTheServiceGetsTheProgramsThatSkipTheVPN(t *testing.T) {
 		expect(t, c, tunapi.TypeHello)
 		c.Send(tunapi.Message{Type: tunapi.TypeHello, Protocol: 1, MinProtocol: 1, Version: "2.0.0"})
 		expect(t, c, tunapi.TypeOpen)
-		c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "Firefox VPN", Index: 7, LUID: 9}})
+		c.Send(tunapi.Message{Type: tunapi.TypeOpened, Interface: &tunapi.Interface{Name: "AWMVPN", Index: 7, LUID: 9}})
 		expect(t, c, tunapi.TypeRoute)
 		c.Send(tunapi.Message{Type: tunapi.TypeRouted})
 		m, _ := c.Receive()
@@ -385,7 +385,7 @@ func TestAnOlderServiceIsUpdatedFirst(t *testing.T) {
 	svc.handlers <- func(c *tunapi.Conn) {
 		expect(t, c, tunapi.TypeHello)
 		c.Send(tunapi.Hello("1.0.0"))
-		if m := expect(t, c, tunapi.TypeUpdate); m.Path != `C:\App\core\firefox-vpn-tun.exe` {
+		if m := expect(t, c, tunapi.TypeUpdate); m.Path != `C:\App\core\awmvpn-tun.exe` {
 			t.Errorf("update from %q", m.Path)
 		}
 		c.Send(tunapi.Message{Type: tunapi.TypeUpdating})
@@ -393,7 +393,7 @@ func TestAnOlderServiceIsUpdatedFirst(t *testing.T) {
 	svc.handlers <- func(*tunapi.Conn) {} // the wait for the restart
 	svc.handlers <- healthyService(t, "2.0.0", nil)
 	host.wanted.Store(true)
-	defer runSync(t, host, `C:\App\core\firefox-vpn-tun.exe`)()
+	defer runSync(t, host, `C:\App\core\awmvpn-tun.exe`)()
 	if s := waitState(t, host, service.TunOn, ""); s.ServiceVersion != "2.0.0" {
 		t.Fatalf("on with %q", s.ServiceVersion)
 	}
@@ -422,12 +422,12 @@ func TestAfterTheAppsUpdateAnOlderServiceUpdatesAtOnce(t *testing.T) {
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	sync := newTunSync(host, `C:\App\core\firefox-vpn-tun.exe`)
+	sync := newTunSync(host, `C:\App\core\awmvpn-tun.exe`)
 	sync.refresh = true
 	go sync.run(ctx)
 	select {
 	case path := <-updated:
-		if path != `C:\App\core\firefox-vpn-tun.exe` {
+		if path != `C:\App\core\awmvpn-tun.exe` {
 			t.Fatalf("update from %q", path)
 		}
 	case <-time.After(5 * time.Second):
@@ -455,7 +455,7 @@ func TestACompatibleServiceThatRefusesTheUpdateIsStillUsed(t *testing.T) {
 		session(t, c, nil)
 	}
 	host.wanted.Store(true)
-	defer runSync(t, host, `C:\App\core\firefox-vpn-tun.exe`)()
+	defer runSync(t, host, `C:\App\core\awmvpn-tun.exe`)()
 	waitState(t, host, service.TunOn, "")
 }
 
@@ -480,7 +480,7 @@ func TestAServiceOfAnotherProtocol(t *testing.T) {
 				}
 			}
 			host.wanted.Store(true)
-			defer runSync(t, host, `C:\App\core\firefox-vpn-tun.exe`)()
+			defer runSync(t, host, `C:\App\core\awmvpn-tun.exe`)()
 			waitState(t, host, service.TunError, c.code)
 		})
 	}

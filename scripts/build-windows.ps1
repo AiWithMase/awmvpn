@@ -1,13 +1,13 @@
 # Builds the Windows app with its core into dist\:
-# - Firefox-VPN-<version>\: firefox-vpn.exe (the Flutter app),
-#   core\firefox-vpn-core.exe (the Go core, which the app starts with -app),
-#   and core\firefox-vpn-tun.exe (the TUN service, which the app or Setup
+# - AWMVPN-<version>\: awmvpn.exe (the Flutter app),
+#   core\awmvpn-core.exe (the Go core, which the app starts with -app),
+#   and core\awmvpn-tun.exe (the TUN service, which the app or Setup
 #   installs; scripts\build-windows-tun.ps1 says how it is signed), to run
 #   here;
-# - Firefox-VPN-<version>-Windows-x64.zip: the portable app, a "Firefox VPN"
+# - AWMVPN-<version>-Windows-x64.zip: the portable app, a "AWMVPN"
 #   folder to unpack anywhere (or over an older one);
-# - Firefox-VPN-<version>-Windows-Setup-x64.exe: the installer
-#   (app\windows\installer\firefox-vpn.iss, Inno Setup 6).
+# - AWMVPN-<version>-Windows-Setup-x64.exe: the installer
+#   (app\windows\installer\awmvpn.iss, Inno Setup 6).
 # The app keeps its data (accounts, settings, logs) in user-data beside it.
 # The zip and the installer are made from a clean copy, never with a
 # user-data folder. The version is "major.minor.patch" from app\pubspec.yaml,
@@ -26,7 +26,7 @@ $match = Select-String -Path "$root\app\pubspec.yaml" -Pattern '^version:\s*(\d+
 if (-not $match) { throw 'No version in app\pubspec.yaml' }
 $version = $match.Matches[0].Groups[1].Value
 if ($AppVersion) { $version = $AppVersion }
-$out = "$root\dist\Firefox-VPN-$version"
+$out = "$root\dist\AWMVPN-$version"
 if (Test-Path $out) { throw "$out already exists; bump the version in app\pubspec.yaml" }
 
 # Inno Setup's compiler: ISCC on the PATH, else its usual places.
@@ -68,27 +68,27 @@ Push-Location "$root\core"
 try {
     # The executable's icon and version information (Windows resources).
     $env:APP_VERSION = $version
-    go generate ./cmd/firefox-vpn-core
+    go generate ./cmd/awmvpn-core
     if ($LASTEXITCODE -ne 0) { throw 'go generate failed' }
-    $ldflags = "-s -w -X github.com/armanlife/firefox-vpn-client/core/internal/version.Current=$version"
-    if ($public) { $ldflags += " -X github.com/armanlife/firefox-vpn-client/core/internal/signing.Key=$public" }
-    go build -trimpath -ldflags $ldflags -o "$out\core\firefox-vpn-core.exe" ./cmd/firefox-vpn-core
+    $ldflags = "-s -w -X github.com/aiwithmase/awmvpn/core/internal/version.Current=$version"
+    if ($public) { $ldflags += " -X github.com/aiwithmase/awmvpn/core/internal/signing.Key=$public" }
+    go build -trimpath -ldflags $ldflags -o "$out\core\awmvpn-core.exe" ./cmd/awmvpn-core
     if ($LASTEXITCODE -ne 0) { throw 'go build failed' }
     & "$PSScriptRoot\build-windows-tun.ps1" -Version $version -Out "$out\core" -PublicKey $public
 } finally { Pop-Location }
 
 # A clean copy named as the user sees it, for the zip and the installer.
 $stage = "$root\dist\.stage-$version"
-$app = "$stage\Firefox VPN"
+$app = "$stage\AWMVPN"
 Remove-Item -Recurse -Force $stage -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force $app | Out-Null
 Get-ChildItem $out -Force | Where-Object { $_.Name -notin 'user-data', 'portable' } | Copy-Item -Destination $app -Recurse
 try {
-    $zip = "$root\dist\Firefox-VPN-$version-Windows-x64.zip"
+    $zip = "$root\dist\AWMVPN-$version-Windows-x64.zip"
     Compress-Archive -Path $app -DestinationPath $zip -CompressionLevel Optimal -Force
 
-    $setupName = "Firefox-VPN-$version-Windows-Setup-x64"
-    & $iscc /Q "/DAppVersion=$version" "/DSourceDir=$app" "/DOutputDir=$root\dist" "/DOutputName=$setupName" "$root\app\windows\installer\firefox-vpn.iss"
+    $setupName = "AWMVPN-$version-Windows-Setup-x64"
+    & $iscc /Q "/DAppVersion=$version" "/DSourceDir=$app" "/DOutputDir=$root\dist" "/DOutputName=$setupName" "$root\app\windows\installer\awmvpn.iss"
     if ($LASTEXITCODE -ne 0) { throw 'the installer did not build' }
 } finally { Remove-Item -Recurse -Force $stage -ErrorAction SilentlyContinue }
 

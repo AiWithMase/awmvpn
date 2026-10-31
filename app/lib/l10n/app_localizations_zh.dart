@@ -10,7 +10,7 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appTitle => 'Firefox VPN';
+  String get appTitle => 'AWMVPN';
 
   @override
   String get navOverview => '概览';
@@ -1273,7 +1273,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tunAppOutdated => 'TUN 服务比此应用新。请更新应用以使用 TUN 模式。';
 
   @override
-  String get tunBusy => '另一个 Firefox VPN 副本正在使用 TUN 模式。';
+  String get tunBusy => '另一个 AWMVPN 副本正在使用 TUN 模式。';
 
   @override
   String get tunInstall => '安装';
@@ -1294,10 +1294,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tunServiceRemoved => '已移除 TUN 服务。';
 
   @override
-  String get tunInstallPrompt => 'Firefox VPN 想要安装 TUN 模式的服务。';
+  String get tunInstallPrompt => 'AWMVPN 想要安装 TUN 模式的服务。';
 
   @override
-  String get tunRemovePrompt => 'Firefox VPN 想要移除 TUN 模式的服务。';
+  String get tunRemovePrompt => 'AWMVPN 想要移除 TUN 模式的服务。';
 
   @override
   String tunRemoveFailed(String error) {
@@ -1428,7 +1428,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   AppLocalizationsZhHant() : super('zh_Hant');
 
   @override
-  String get appTitle => 'Firefox VPN';
+  String get appTitle => 'AWMVPN';
 
   @override
   String get navOverview => '總覽';
@@ -2692,7 +2692,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get tunAppOutdated => 'TUN 服務比此應用程式新。請更新應用程式以使用 TUN 模式。';
 
   @override
-  String get tunBusy => '另一個 Firefox VPN 副本正在使用 TUN 模式。';
+  String get tunBusy => '另一個 AWMVPN 副本正在使用 TUN 模式。';
 
   @override
   String get tunInstall => '安裝';
@@ -2713,10 +2713,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get tunServiceRemoved => '已移除 TUN 服務。';
 
   @override
-  String get tunInstallPrompt => 'Firefox VPN 想要安裝 TUN 模式的服務。';
+  String get tunInstallPrompt => 'AWMVPN 想要安裝 TUN 模式的服務。';
 
   @override
-  String get tunRemovePrompt => 'Firefox VPN 想要移除 TUN 模式的服務。';
+  String get tunRemovePrompt => 'AWMVPN 想要移除 TUN 模式的服務。';
 
   @override
   String tunRemoveFailed(String error) {

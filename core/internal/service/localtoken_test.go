@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 func TestLocalTokenBypassesHostCheckAndLogin(t *testing.T) {

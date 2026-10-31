@@ -9,10 +9,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/config"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/proxy"
-	"github.com/armanlife/firefox-vpn-client/core/internal/serverlist"
+	"github.com/aiwithmase/awmvpn/core/internal/config"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/proxy"
+	"github.com/aiwithmase/awmvpn/core/internal/serverlist"
 )
 
 // errNoAccounts reports that the service has no enabled account to use.

@@ -68,7 +68,7 @@ abstract final class CoreLocator {
   static const _defaultPort = 10820;
 
   /// The folder name under the per-user data location (macOS).
-  static const appFolder = 'Firefox VPN Client';
+  static const appFolder = 'AWMVPN Client';
 
   /// The file next to the app that makes it portable: its data stays in
   /// `user-data` beside it instead of the per-user location.
@@ -109,7 +109,7 @@ abstract final class CoreLocator {
     final home = env['HOME'] ?? env['USERPROFILE'] ?? exeDir;
     return switch (os) {
       'macos' => '$home/Library/Application Support/$appFolder',
-      _ => '${env['XDG_DATA_HOME'] ?? '$home/.local/share'}/firefox-vpn-client',
+      _ => '${env['XDG_DATA_HOME'] ?? '$home/.local/share'}/awmvpn-client',
     };
   }
 

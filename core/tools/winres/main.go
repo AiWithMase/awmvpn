@@ -1,11 +1,11 @@
 // Command winres writes the Windows resources of an executable (its icon,
 // version information, and application manifest) as .syso objects that go
-// build links into the package in the current folder: ./cmd/firefox-vpn-core,
-// or with -program tun ./cmd/firefox-vpn-tun. scripts/build-windows.ps1 runs
+// build links into the package in the current folder: ./cmd/awmvpn-core,
+// or with -program tun ./cmd/awmvpn-tun. scripts/build-windows.ps1 runs
 // it before each build with the release version in APP_VERSION (else
 // version.Current):
 //
-//	APP_VERSION=1.1.0 go generate ./cmd/firefox-vpn-core ./cmd/firefox-vpn-tun
+//	APP_VERSION=1.1.0 go generate ./cmd/awmvpn-core ./cmd/awmvpn-tun
 //
 // The objects are build output, not kept in Git; a build without them has
 // no icon, version information, or manifest.
@@ -20,18 +20,18 @@ import (
 	"github.com/tc-hib/winres"
 	winversion "github.com/tc-hib/winres/version"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/desktop"
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/desktop"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // program is what each executable's version information says.
 type program struct{ description, name string }
 
 var programs = map[string]program{
-	"core": {"Firefox VPN Core", "firefox-vpn-core"},
+	"core": {"AWMVPN Core", "awmvpn-core"},
 	// The administrator prompt shows this description when the app
 	// installs the service.
-	"tun": {"Firefox VPN TUN", "firefox-vpn-tun"},
+	"tun": {"AWMVPN TUN", "awmvpn-tun"},
 }
 
 func main() {
@@ -67,13 +67,13 @@ func run(p program) error {
 	vi.SetFileVersion(release)
 	vi.SetProductVersion(release)
 	for key, value := range map[string]string{
-		winversion.ProductName:      "Firefox VPN",
+		winversion.ProductName:      "AWMVPN",
 		winversion.FileDescription:  p.description,
 		winversion.OriginalFilename: p.name + ".exe",
 		winversion.InternalName:     p.name,
 		// The publisher, as in the installer (AppPublisher) and the app.
-		winversion.CompanyName:    "Arman",
-		winversion.LegalCopyright: "Copyright (c) 2026 Arman",
+		winversion.CompanyName:    "AiWithMase",
+		winversion.LegalCopyright: "Copyright (c) 2026 AiWithMase; based on work by Arman",
 	} {
 		if err := vi.Set(winversion.LangDefault, key, value); err != nil {
 			return err

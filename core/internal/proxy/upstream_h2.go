@@ -16,9 +16,9 @@ import (
 
 	"golang.org/x/net/http2"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/controlplane"
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/resolver"
+	"github.com/aiwithmase/awmvpn/core/internal/controlplane"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/resolver"
 )
 
 const (

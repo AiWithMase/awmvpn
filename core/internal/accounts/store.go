@@ -17,8 +17,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/fxa"
-	"github.com/armanlife/firefox-vpn-client/core/internal/securefile"
+	"github.com/aiwithmase/awmvpn/core/internal/fxa"
+	"github.com/aiwithmase/awmvpn/core/internal/securefile"
 )
 
 const (

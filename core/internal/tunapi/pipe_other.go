@@ -10,8 +10,8 @@ import (
 
 // ServiceName and ExeName name the service and its executable.
 const (
-	ServiceName = "firefox-vpn-tun"
-	ExeName     = "firefox-vpn-tun"
+	ServiceName = "awmvpn-tun"
+	ExeName     = "awmvpn-tun"
 )
 
 // ErrNoService means no service answers: it is not installed, or it is

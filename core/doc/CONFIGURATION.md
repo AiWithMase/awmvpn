@@ -1,15 +1,15 @@
 # Configuration and State Contracts
 
-All settings and state live in the `user-data` folder next to the executable, in the desktop app's data folder when the core sits beside `firefox-vpn.exe`, or in `-data-dir`. This guide lists every file in it and the selection rules that read them. The full `config.json` field table is in [MULTI-ACCOUNT.md](MULTI-ACCOUNT.md#configuration); dashboard behavior is in [DASHBOARD.md](DASHBOARD.md).
+All settings and state live in the `user-data` folder next to the executable, in the desktop app's data folder when the core sits beside `awmvpn.exe`, or in `-data-dir`. This guide lists every file in it and the selection rules that read them. The full `config.json` field table is in [MULTI-ACCOUNT.md](MULTI-ACCOUNT.md#configuration); dashboard behavior is in [DASHBOARD.md](DASHBOARD.md).
 
 ## Entry points
 
 | Entry point | Source | Behavior |
 | --- | --- | --- |
-| Executable flags | [main.go](../cmd/firefox-vpn-core/main.go), [commands.go](../cmd/firefox-vpn-core/commands.go) | Data folder, the one-shot commands, `-verbose` |
+| Executable flags | [main.go](../cmd/awmvpn-core/main.go), [commands.go](../cmd/awmvpn-core/commands.go) | Data folder, the one-shot commands, `-verbose` |
 | `config.json` | [internal/config](../internal/config/config.go) | Every runtime setting; created with defaults on first use |
 | Dashboard Settings | `PUT /api/settings` -> `Daemon.updateSettings` | Validates, saves `config.json`, applies live or restarts the proxy |
-| Linux service | [install-systemd.sh](../scripts/install-systemd.sh) | Installs to `/opt/firefox-vpn`; no settings of its own |
+| Linux service | [install-systemd.sh](../scripts/install-systemd.sh) | Installs to `/opt/awmvpn`; no settings of its own |
 | API relay | `network.api_relay` -> `configureAPIRelay` -> `controlplane.SetTransport(relayTransport)` | Sends control-plane requests through the user's relay (`?url=<target>`, [scripts/relay](../scripts/relay)), independently of the Fastly data plane |
 
 | Listener | Default |
@@ -50,7 +50,7 @@ Should Mozilla start enforcing the lock, the server of a chosen location refuses
 | `servers.json` | `Daemon.refreshLocations` | The last server list fetched from Mozilla's Remote Settings, as fetched (filtered again on use), and when. Loaded at start, so the locations show at once; used when a fetch fails; a connection whose pass is ready before the new list uses it instead of waiting (`serverlist.SaveCache`, `LoadCache`) | No |
 | `status.json` | `proxy.Controller` | Runtime status snapshot | No |
 | `local-api.token` | `Daemon.Run` | Random key for local clients (the tray), replaced on every start, written only after the dashboard address is bound | Yes (local API access) |
-| `logs/firefox-vpn-YYYY-MM-DD.log` | `logx` (`dailyFile`) | Log lines, one file per local day; the last seven days are kept and the oldest is deleted when the eighth day starts; a day's file stops at 10 MiB | No (redacted) |
+| `logs/awmvpn-YYYY-MM-DD.log` | `logx` (`dailyFile`) | Log lines, one file per local day; the last seven days are kept and the oldest is deleted when the eighth day starts; a day's file stops at 10 MiB | No (redacted) |
 | `routing/geosite.dat`, `routing/geoip.dat` | `routing.Download` | v2ray domain and network lists for routing, downloaded again every `routing.update_interval` | No |
 | `dashboard.key` | Dashboard | Random key that signs the dashboard's session cookies; deleting it signs every browser out | Yes (dashboard access) |
 | `update/` | [internal/update](../internal/update/update.go) | The desktop app's own update (Windows, Linux, macOS): `<version>/` (the release's signed `SHA256SUMS.txt`, its `.sig`, and the app's zip or tar.gz, once downloaded; kept until installed or replaced), and while one installs `new/` (the unpacked package; `new.part/` while it unpacks), `backup/` (the replaced files), `updater/` (the copy of the core running `-update`), `pending.json`, and `result.json`; the next start removes all but a newer downloaded version | No |
@@ -132,6 +132,6 @@ Only the tray, the app mode, and the status screen while the proxy runs in its w
 
 ## Logs and exit probes
 
-Logs go to the dashboard's in-memory buffer of 2000 entries and to the day's file in `user-data/logs` (`firefox-vpn-YYYY-MM-DD.log`); in a terminal or under systemd they also go to stderr (the console or the journal). The tray and the app mode (`-app`) write only the file. CONNECT destinations and response bodies are redacted unless verbose logging is enabled, and account emails show only their first letters and domain (`ha****@example.com`, `logx.Email`; a label that is no email shows as it is) unless verbose logging (Detailed logs) is enabled.
+Logs go to the dashboard's in-memory buffer of 2000 entries and to the day's file in `user-data/logs` (`awmvpn-YYYY-MM-DD.log`); in a terminal or under systemd they also go to stderr (the console or the journal). The tray and the app mode (`-app`) write only the file. CONNECT destinations and response bodies are redacted unless verbose logging is enabled, and account emails show only their first letters and domain (`ha****@example.com`, `logx.Email`; a label that is no email shows as it is) unless verbose logging (Detailed logs) is enabled.
 
 The connection test runs by itself after the proxy first connects to Mozilla (its first wake, unless that wake was a requested test) and after its upstream session was rebuilt (`Daemon.autoTest`), and from Test connection; it includes the public IP check, which always runs (each service waiting 20 seconds, `exitCheckTimeout`). Both go through the proxy controller, never directly and never through routing. Both are non-fatal. `proxy.VerifyExit` finds the public IPv4 and IPv6 address at the same time with two requests to Cloudflare's trace at its IP addresses: `https://1.1.1.1/cdn-cgi/trace` and `https://[2606:4700:4700::1111]/cdn-cgi/trace` (key=value, the address and the country). Cloudflare's country comes first: it is the one the many sites behind Cloudflare see, from a database kept current. Each host has addresses of one family only, so Mozilla's proxy reaches it over that family and it sees the exit address of that family; a dual-stack host such as `api.ip.sb` shows only the family the proxy prefers (IPv6). When the trace does not answer, ip.sb is asked for that family (`https://api-ipv4.ip.sb/geoip`, `https://api-ipv6.ip.sb/geoip`; JSON with the country, city, ISP, and ASN; the service v2rayNG uses). ip.sb is also asked alongside for the city and network, which the trace does not report; its country never replaces Cloudflare's. An answer of the wrong family is ignored. The check fails only when neither family answers; an exit without IPv6 reports only IPv4. `ipinfo.io` was not used: it has IPv4 addresses only and limits requests without a token per IP, which Mozilla's shared exit addresses would reach.

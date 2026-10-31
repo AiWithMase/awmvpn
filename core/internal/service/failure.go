@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/netcheck"
-	"github.com/armanlife/firefox-vpn-client/core/internal/netstate"
-	"github.com/armanlife/firefox-vpn-client/core/internal/proxy"
+	"github.com/aiwithmase/awmvpn/core/internal/netcheck"
+	"github.com/aiwithmase/awmvpn/core/internal/netstate"
+	"github.com/aiwithmase/awmvpn/core/internal/proxy"
 )
 
 // failureCode is proxy.FailureCode for err, made sure for failures that may

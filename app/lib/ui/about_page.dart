@@ -198,6 +198,25 @@ class _AboutPageState extends State<AboutPage> {
                   ],
                 ),
               ],
+              const Divider(height: 24),
+              // The brand's own channels: the same names in every language.
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: () => openUrl(youtubeUrl),
+                    icon: const Icon(Icons.play_circle_outline_rounded, size: 18),
+                    label: const Text('YouTube'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: () => openUrl(telegramUrl),
+                    icon: const Icon(Icons.send_rounded, size: 18),
+                    label: const Text('Telegram'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

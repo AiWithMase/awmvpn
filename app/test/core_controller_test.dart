@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firefox_vpn/core/core_api.dart';
-import 'package:firefox_vpn/core/core_controller.dart';
-import 'package:firefox_vpn/core/models.dart';
+import 'package:awmvpn/core/core_api.dart';
+import 'package:awmvpn/core/core_controller.dart';
+import 'package:awmvpn/core/models.dart';
 
 /// A core whose next [failNext] reads fail as if the connection dropped.
 class _FlakyApi implements CoreApi {

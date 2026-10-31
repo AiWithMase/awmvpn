@@ -1,5 +1,5 @@
-name: firefox_vpn
-description: "Cross-platform shell for the Go VPN core"
+name: awmvpn
+description: "AWMVPN - a free VPN client that signs in with a Firefox Account"
 publish_to: 'none'
 
 version: 1.0.5+126

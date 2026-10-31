@@ -1,4 +1,4 @@
-package com.arman.firefoxvpn
+package com.aiwithmase.awmvpn
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -65,7 +65,7 @@ class ConnectWidget : AppWidgetProvider() {
 
     companion object {
         private const val TAG = "ConnectWidget"
-        private const val ACTION_TOGGLE = "com.arman.firefoxvpn.WIDGET_TOGGLE"
+        private const val ACTION_TOGGLE = "com.aiwithmase.awmvpn.WIDGET_TOGGLE"
 
         private const val OFF = 0
         private const val CONNECTING = 1

@@ -342,11 +342,11 @@ void DesktopBridge::SetAutostart(bool enabled, const std::wstring& command) {
     return;
   }
   if (enabled && !command.empty()) {
-    RegSetValueExW(key, L"Firefox VPN", 0, REG_SZ,
+    RegSetValueExW(key, L"AWMVPN", 0, REG_SZ,
                    reinterpret_cast<const BYTE*>(command.c_str()),
                    static_cast<DWORD>((command.size() + 1) * sizeof(wchar_t)));
   } else {
-    RegDeleteValueW(key, L"Firefox VPN");
+    RegDeleteValueW(key, L"AWMVPN");
   }
   RegCloseKey(key);
 }

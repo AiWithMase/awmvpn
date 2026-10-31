@@ -3,7 +3,7 @@ package tunservice
 import (
 	"io"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/wfp"
+	"github.com/aiwithmase/awmvpn/core/internal/wfp"
 )
 
 // startFilters keeps DNS (and, for an adapter without IPv6, IPv6) inside

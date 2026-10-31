@@ -13,7 +13,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/resolver"
+	"github.com/aiwithmase/awmvpn/core/internal/resolver"
 )
 
 const (

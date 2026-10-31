@@ -8,7 +8,15 @@ const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.0');
 
 /// The GitHub repository, "owner/name", for the source link and the update
 /// check.
-const githubRepo = 'armanlife/firefox-vpn-client';
+const githubRepo = 'AiWithMase/awmvpn';
+
+/// The brand, as the About page shows it.
+const brandName = 'AWMVPN';
+const brandVendor = 'AiWithMase';
+
+/// Where the project's news and support are.
+const youtubeUrl = 'https://www.youtube.com/@AiWithMase';
+const telegramUrl = 'https://t.me/AiWithMase';
 
 /// A newer release on GitHub.
 class Release {
@@ -38,7 +46,7 @@ bool newerVersion(String a, String b) {
 /// files, which the core downloads from it too (core/internal/update,
 /// ServerEnv).
 String get updateServer =>
-    (Platform.environment['FIREFOX_VPN_UPDATE_SERVER'] ?? '').replaceFirst(
+    (Platform.environment['AWMVPN_UPDATE_SERVER'] ?? '').replaceFirst(
       RegExp(r'/+$'),
       '',
     );
@@ -49,7 +57,7 @@ String linuxName(String platformVersion) =>
     'Linux-${platformVersion.contains('arm64') ? 'arm64' : 'amd64'}.tar.gz';
 
 /// The name part of the release file that [os]'s app installs or downloads
-/// (`Firefox-VPN-<version>-<part>`); a release that has it was built for
+/// (`AWMVPN-<version>-<part>`); a release that has it was built for
 /// [os]. null for another system.
 String? releaseFilePart(String os) => switch (os) {
   'windows' => 'Windows-x64.zip',
@@ -104,7 +112,7 @@ Future<Release?> checkForUpdate({
         ? 'https://github.com/$repo/releases'
         : '$srv/releases';
     final part = releaseFilePart(system);
-    final file = part == null ? 'SHA256SUMS.txt' : 'Firefox-VPN-$wanted-$part';
+    final file = part == null ? 'SHA256SUMS.txt' : 'AWMVPN-$wanted-$part';
     if (!await _published(client, '$releases/download/v$wanted/$file')) {
       throw HttpException('version $wanted is not published yet');
     }
@@ -165,7 +173,7 @@ Future<bool> _published(HttpClient client, String url) async {
       .timeout(const Duration(seconds: 20));
   req
     ..followRedirects = false
-    ..headers.set(HttpHeaders.userAgentHeader, 'firefox-vpn/$appVersion');
+    ..headers.set(HttpHeaders.userAgentHeader, 'awmvpn/$appVersion');
   final res = await req.close().timeout(const Duration(seconds: 20));
   await res.drain<void>();
   if (res.statusCode == 404) return false;
@@ -184,7 +192,7 @@ Future<(int, String)> _get(
       .timeout(const Duration(seconds: 20));
   req.headers
     ..set(HttpHeaders.acceptHeader, accept)
-    ..set(HttpHeaders.userAgentHeader, 'firefox-vpn/$appVersion');
+    ..set(HttpHeaders.userAgentHeader, 'awmvpn/$appVersion');
   final res = await req.close().timeout(const Duration(seconds: 20));
   final body = await res
       .transform(utf8.decoder)

@@ -13,10 +13,10 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
 )
 
-// On macOS the app is its bundle (Firefox VPN.app), in the release's
+// On macOS the app is its bundle (AWMVPN.app), in the release's
 // tar.gz.
 func init() { thePackage = macPackage }
 

@@ -1,4 +1,4 @@
-package com.arman.firefoxvpn
+package com.aiwithmase.awmvpn
 
 import android.app.PendingIntent
 import android.content.ComponentName

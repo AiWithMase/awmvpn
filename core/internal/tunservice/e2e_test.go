@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
 )
 
 // TestEndToEnd runs a TUN for real, on a computer whose network it may

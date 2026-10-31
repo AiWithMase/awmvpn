@@ -106,7 +106,7 @@ func waitForExit(pids []int, timeout time.Duration) error {
 }
 
 // uninstallKey is Setup's entry in Windows' list of installed apps, for the
-// current user: its AppId (app/windows/installer/firefox-vpn.iss) and "_is1".
+// current user: its AppId (app/windows/installer/awmvpn.iss) and "_is1".
 // Tests use a key of their own.
 var uninstallKey = `Software\Microsoft\Windows\CurrentVersion\Uninstall\{6F3A2C1E-9B4D-4E7A-8C21-5D0F7B9E4A63}_is1`
 

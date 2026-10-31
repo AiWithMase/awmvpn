@@ -16,10 +16,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunstack"
-	"github.com/armanlife/firefox-vpn-client/core/internal/version"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/tunstack"
+	"github.com/aiwithmase/awmvpn/core/internal/version"
 )
 
 // The installed service lives in a folder only root may write to

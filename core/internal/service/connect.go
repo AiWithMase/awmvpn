@@ -3,9 +3,9 @@ package service
 import (
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
-	"github.com/armanlife/firefox-vpn-client/core/internal/netstate"
-	"github.com/armanlife/firefox-vpn-client/core/internal/proxy"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/netstate"
+	"github.com/aiwithmase/awmvpn/core/internal/proxy"
 )
 
 // A connect the user asked for in an app (the button) that never reaches

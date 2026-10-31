@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/logx"
+	"github.com/aiwithmase/awmvpn/core/internal/logx"
 )
 
 type RuntimeStatus struct {

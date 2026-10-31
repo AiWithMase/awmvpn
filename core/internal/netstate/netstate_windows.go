@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/sys/windows"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
 )
 
 // connected looks for an adapter that is up and has a default gateway.

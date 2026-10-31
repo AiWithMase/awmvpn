@@ -13,8 +13,8 @@ import (
 
 const platformSupported = true
 
-// dataDirOK: the data folder (~/.local/share/firefox-vpn-client on Linux,
-// ~/Library/Application Support/Firefox VPN Client on macOS) is on the
+// dataDirOK: the data folder (~/.local/share/awmvpn-client on Linux,
+// ~/Library/Application Support/AWMVPN Client on macOS) is on the
 // app's drive, so the update's renames work, and outside the app (a
 // portable copy keeps it inside, where the swap would move it along); the
 // user may change the app's folder (not a copy that root installed, nor a

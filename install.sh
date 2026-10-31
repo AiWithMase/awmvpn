@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Installs or updates Firefox VPN from the newest release on GitHub:
+# Installs or updates AWMVPN from the newest release on GitHub:
 #
-#   curl -fsSL https://raw.githubusercontent.com/armanlife/firefox-vpn-client/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/AiWithMase/awmvpn/main/install.sh | bash
 #
 # Without an argument it decides by itself:
 #   - macOS, or Linux with a graphical session: the app, for the current
@@ -9,7 +9,7 @@
 #   - Linux without a graphical session, or run as root: the core alone as
 #     a systemd service with the web dashboard (it asks sudo for that);
 #   - a Linux SSH session could be either, so it asks;
-#   - when Firefox VPN is already installed, it asks: update (the default)
+#   - when AWMVPN is already installed, it asks: update (the default)
 #     or remove, and on remove whether to delete the accounts too.
 # Questions are read from the terminal; without one (automation) the
 # default answer is taken, so a rerun updates. Accounts and settings stay.
@@ -24,7 +24,7 @@
 #   core/scripts/install-systemd.sh
 set -euo pipefail
 
-REPO="armanlife/firefox-vpn-client"
+REPO="AiWithMase/awmvpn"
 RAW="https://raw.githubusercontent.com/$REPO/main/install.sh"
 VERSION="${VERSION:-latest}"
 if [ "$VERSION" = "latest" ]; then
@@ -32,13 +32,13 @@ if [ "$VERSION" = "latest" ]; then
 else
   BASE_URL="${BASE_URL:-https://github.com/$REPO/releases/download/$VERSION}"
 fi
-COMMAND=/usr/local/bin/firefox-vpn
+COMMAND=/usr/local/bin/awmvpn
 OS="$(uname -s)"
 PURGE="${PURGE:-0}"
 
 # The service's unit, and its settings to pass through sudo, which clears
 # the environment.
-SERVICE_UNIT="/etc/systemd/system/${SERVICE_NAME:-firefox-vpn}.service"
+SERVICE_UNIT="/etc/systemd/system/${SERVICE_NAME:-awmvpn}.service"
 SERVICE_ENV=()
 [ -z "${INSTALL_DIR:-}" ] || SERVICE_ENV+=("INSTALL_DIR=$INSTALL_DIR")
 [ -z "${SERVICE_NAME:-}" ] || SERVICE_ENV+=("SERVICE_NAME=$SERVICE_NAME")
@@ -46,20 +46,20 @@ SERVICE_ENV=()
 
 # The Linux app's places, for the current user.
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-APP_DIR="$HOME/.local/opt/firefox-vpn-client"
-DESKTOP_FILE="$DATA_HOME/applications/com.arman.firefoxvpn.desktop"
-AUTOSTART_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/autostart/firefox-vpn-client.desktop"
-APP_DATA="$DATA_HOME/firefox-vpn-client"
+APP_DIR="$HOME/.local/opt/awmvpn-client"
+DESKTOP_FILE="$DATA_HOME/applications/com.aiwithmase.awmvpn.desktop"
+AUTOSTART_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/autostart/awmvpn-client.desktop"
+APP_DATA="$DATA_HOME/awmvpn-client"
 
 # The macOS app's.
-MAC_APP="Firefox VPN.app"
-MAC_AGENT="$HOME/Library/LaunchAgents/com.arman.firefoxvpn.plist"
-MAC_DATA="$HOME/Library/Application Support/Firefox VPN Client"
+MAC_APP="AWMVPN.app"
+MAC_AGENT="$HOME/Library/LaunchAgents/com.aiwithmase.awmvpn.plist"
+MAC_DATA="$HOME/Library/Application Support/AWMVPN Client"
 
 # The TUN mode's service, which the app installs for the whole computer the
-# first time the mode is chosen (core/cmd/firefox-vpn-tun).
-TUN_LINUX="/opt/firefox-vpn-tun/firefox-vpn-tun"
-TUN_MAC="/Library/Application Support/Firefox VPN TUN/firefox-vpn-tun"
+# first time the mode is chosen (core/cmd/awmvpn-tun).
+TUN_LINUX="/opt/awmvpn-tun/awmvpn-tun"
+TUN_MAC="/Library/Application Support/AWMVPN TUN/awmvpn-tun"
 
 # Colors and symbols when the output is a terminal (and NO_COLOR is not
 # set); plain text otherwise, for logs and automation.
@@ -79,7 +79,7 @@ esac
 rule() { local i; for ((i = 0; i < $1; i++)); do printf '%s' "$LINE"; done; }
 
 banner() {
-  printf '\n  %s%sFirefox VPN%s %sinstaller%s\n' "$BOLD" "$FOX" "$OFF" "$DIM" "$OFF"
+  printf '\n  %s%sAWMVPN%s %sinstaller%s\n' "$BOLD" "$FOX" "$OFF" "$DIM" "$OFF"
   printf '  %s%s%s\n' "$DIM" "$(rule 34)" "$OFF"
   field "System" "$(os_name)"
   field "Processor" "$(processor_name)"
@@ -198,7 +198,7 @@ has_app() {
   if [ "$OS" = "Darwin" ]; then
     [ -d "/Applications/$MAC_APP" ] || [ -d "$HOME/Applications/$MAC_APP" ]
   else
-    [ -x "$APP_DIR/firefox-vpn" ]
+    [ -x "$APP_DIR/awmvpn" ]
   fi
 }
 
@@ -301,15 +301,15 @@ install_server() {
     user="${user:-panel$(random_digits 4)}"
   fi
   local name dir
-  name="firefox-vpn-core-linux-$(arch)"
+  name="awmvpn-core-linux-$(arch)"
   dir="$tmp/$name"
   download "$name.tar.gz"
   tar -xzf "$tmp/$name.tar.gz" -C "$tmp"
-  [ -f "$dir/firefox-vpn-core" ] && [ -f "$dir/install-systemd.sh" ] || die "not a firefox-vpn-core archive"
+  [ -f "$dir/awmvpn-core" ] && [ -f "$dir/install-systemd.sh" ] || die "not a awmvpn-core archive"
 
   step "Installing the service"
   # Its own lines only when it fails.
-  if ! $SUDO env ${SERVICE_ENV[@]+"${SERVICE_ENV[@]}"} SELF=firefox-vpn BINARY="$dir/firefox-vpn-core" \
+  if ! $SUDO env ${SERVICE_ENV[@]+"${SERVICE_ENV[@]}"} SELF=awmvpn BINARY="$dir/awmvpn-core" \
     bash "$dir/install-systemd.sh" install >"$tmp/service.log" 2>&1; then
     cat "$tmp/service.log" >&2
     die "installing the service failed"
@@ -318,7 +318,7 @@ install_server() {
   ok "the service runs, and starts with the server"
 
   if [ "$fresh" = 0 ]; then
-    printf '\n  %s%s Firefox VPN is updated and running.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
+    printf '\n  %s%s AWMVPN is updated and running.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
     log "The panel and the proxy keep their addresses and logins."
     command_menu
     return
@@ -328,7 +328,7 @@ install_server() {
   step "Opening the panel and the proxy to the network"
   local out
   out="$($SUDO env ${SERVICE_ENV[@]+"${SERVICE_ENV[@]}"} bash "$COMMAND" setup-server "$user")" ||
-    die "setting up the logins failed; set them with: sudo firefox-vpn panel"
+    die "setting up the logins failed; set them with: sudo awmvpn panel"
   value() { printf '%s\n' "$out" | sed -n "s/^$1=//p"; }
   local panel_user panel_pass panel_port proxy_user proxy_pass proxy_port lan wan
   panel_user="$(value dashboard_username)"
@@ -342,7 +342,7 @@ install_server() {
   ok "each behind its own login"
   [ "$lan" != "$wan" ] || lan=""
 
-  printf '\n  %s%s Firefox VPN is installed and running.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
+  printf '\n  %s%s AWMVPN is installed and running.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
   printf '  %s%s%s\n' "$DIM" "$(rule 58)" "$OFF"
   section "Proxy ${DIM}(SOCKS5 and HTTP)${OFF}"
   [ -z "$lan" ] || field "Local" "$lan:$proxy_port" "$CYAN"
@@ -362,31 +362,31 @@ install_server() {
   command_menu
 }
 
-# command_menu: what the firefox-vpn command does on this server.
+# command_menu: what the awmvpn command does on this server.
 command_menu() {
   local width=58
-  section "Firefox VPN commands"
+  section "AWMVPN commands"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  # In the groups of the firefox-vpn menu, a rule between them.
-  menu_line "firefox-vpn" "The menu: pick a command by its number"
+  # In the groups of the awmvpn menu, a rule between them.
+  menu_line "awmvpn" "The menu: pick a command by its number"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  menu_line "firefox-vpn update" "Update"
-  menu_line "firefox-vpn uninstall" "Uninstall"
+  menu_line "awmvpn update" "Update"
+  menu_line "awmvpn uninstall" "Uninstall"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  menu_line "firefox-vpn panel" "Set panel login"
-  menu_line "firefox-vpn panel-info" "View panel info"
+  menu_line "awmvpn panel" "Set panel login"
+  menu_line "awmvpn panel-info" "View panel info"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  menu_line "firefox-vpn status" "The service's state"
-  menu_line "firefox-vpn start" "Start the service"
-  menu_line "firefox-vpn stop" "Stop the service"
-  menu_line "firefox-vpn restart" "Restart the service"
-  menu_line "firefox-vpn logs" "Show the log"
+  menu_line "awmvpn status" "The service's state"
+  menu_line "awmvpn start" "Start the service"
+  menu_line "awmvpn stop" "Stop the service"
+  menu_line "awmvpn restart" "Restart the service"
+  menu_line "awmvpn logs" "Show the log"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  menu_line "firefox-vpn enable" "Enable autostart"
-  menu_line "firefox-vpn disable" "Disable autostart"
+  menu_line "awmvpn enable" "Enable autostart"
+  menu_line "awmvpn disable" "Disable autostart"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
-  menu_line "firefox-vpn add-account" "Add a Firefox Account"
-  menu_line "firefox-vpn list-accounts" "List the accounts"
+  menu_line "awmvpn add-account" "Add a Firefox Account"
+  menu_line "awmvpn list-accounts" "List the accounts"
   printf '  %s%s%s\n' "$DIM" "$(rule $width)" "$OFF"
   printf '\n'
 }
@@ -400,7 +400,7 @@ menu_line() { printf '  %s%-33s%s %s\n' "$CYAN" "$1" "$OFF" "$2"; }
 # or when either fails, the install goes on: the tray library is named,
 # and the app asks for the service the first time TUN mode is chosen.
 linux_system_parts() {
-  local pkg="" install="" tun="$APP_DIR/core/firefox-vpn-tun" want_tun=0
+  local pkg="" install="" tun="$APP_DIR/core/awmvpn-tun" want_tun=0
   if ! { ldconfig -p 2>/dev/null | grep -qE 'lib(ayatana-)?appindicator3\.so'; }; then
     if command -v apt-get >/dev/null 2>&1; then
       install="apt-get install -y" pkg=libayatana-appindicator3-1
@@ -451,31 +451,31 @@ linux_system_parts() {
 
 install_linux_app() {
   local file
-  file="Firefox-VPN-Linux-$(arch).tar.gz"
+  file="AWMVPN-Linux-$(arch).tar.gz"
   download "$file"
   tar -xzf "$tmp/$file" -C "$tmp"
-  [ -f "$tmp/firefox-vpn/firefox-vpn" ] || die "not a Firefox VPN archive"
-  chmod 0755 "$tmp/firefox-vpn/firefox-vpn" "$tmp/firefox-vpn/core/firefox-vpn-core"
-  if [ -f "$tmp/firefox-vpn/core/firefox-vpn-tun" ]; then chmod 0755 "$tmp/firefox-vpn/core/firefox-vpn-tun"; fi
+  [ -f "$tmp/awmvpn/awmvpn" ] || die "not a AWMVPN archive"
+  chmod 0755 "$tmp/awmvpn/awmvpn" "$tmp/awmvpn/core/awmvpn-core"
+  if [ -f "$tmp/awmvpn/core/awmvpn-tun" ]; then chmod 0755 "$tmp/awmvpn/core/awmvpn-tun"; fi
 
   # A running copy keeps its open files; the new one replaces the folder.
   mkdir -p "$(dirname "$APP_DIR")"
   rm -rf "$APP_DIR.old"
   if [ -d "$APP_DIR" ]; then mv "$APP_DIR" "$APP_DIR.old"; fi
-  mv "$tmp/firefox-vpn" "$APP_DIR"
+  mv "$tmp/awmvpn" "$APP_DIR"
   rm -rf "$APP_DIR.old"
 
   mkdir -p "$(dirname "$DESKTOP_FILE")"
   cat >"$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Type=Application
-Name=Firefox VPN
+Name=AWMVPN
 Comment=Free VPN through Mozilla's servers
-Exec="$APP_DIR/firefox-vpn"
+Exec="$APP_DIR/awmvpn"
 Icon=$APP_DIR/data/app_icon.png
 Terminal=false
 Categories=Network;
-StartupWMClass=com.arman.firefoxvpn
+StartupWMClass=com.aiwithmase.awmvpn
 EOF
   if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database -q "$(dirname "$DESKTOP_FILE")" || true
@@ -483,10 +483,10 @@ EOF
 
   ok "installed in $APP_DIR"
   linux_system_parts
-  printf '\n  %s%s Firefox VPN is installed.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
+  printf '\n  %s%s AWMVPN is installed.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
   section "Open it"
-  field "Menu" "Firefox VPN in the applications menu"
-  field "Command" "$APP_DIR/firefox-vpn" "$CYAN"
+  field "Menu" "AWMVPN in the applications menu"
+  field "Command" "$APP_DIR/awmvpn" "$CYAN"
   field "Update" "run the same install command again (it also removes)"
   printf '\n'
 }
@@ -495,24 +495,24 @@ EOF
 # writable). Downloaded this way it carries no quarantine flag, so macOS
 # opens it without asking.
 install_mac_app() {
-  local file="Firefox-VPN-macOS.dmg" dest=/Applications
+  local file="AWMVPN-macOS.dmg" dest=/Applications
   [ -w "$dest" ] || dest="$HOME/Applications"
   mkdir -p "$dest"
   download "$file"
   mkdir "$tmp/mnt"
   hdiutil attach -nobrowse -readonly -quiet -mountpoint "$tmp/mnt" "$tmp/$file" || die "could not open $file"
   mounted="$tmp/mnt"
-  [ -d "$tmp/mnt/$MAC_APP" ] || die "not a Firefox VPN disk image"
+  [ -d "$tmp/mnt/$MAC_APP" ] || die "not a AWMVPN disk image"
   # A running copy quits first, so the new one replaces it.
-  osascript -e 'quit app "Firefox VPN"' >/dev/null 2>&1 || true
+  osascript -e 'quit app "AWMVPN"' >/dev/null 2>&1 || true
   rm -rf "$dest/$MAC_APP"
   ditto "$tmp/mnt/$MAC_APP" "$dest/$MAC_APP"
   hdiutil detach -quiet "$tmp/mnt" || true
   mounted=""
   ok "installed in $dest/$MAC_APP"
-  printf '\n  %s%s Firefox VPN is installed.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
+  printf '\n  %s%s AWMVPN is installed.%s\n' "$GREEN$BOLD" "$TICK" "$OFF"
   section "Open it"
-  field "Launchpad" "Firefox VPN in Launchpad or Applications"
+  field "Launchpad" "AWMVPN in Launchpad or Applications"
   field "Command" "open \"$dest/$MAC_APP\"" "$CYAN"
   field "Update" "run the same install command again (it also removes)"
   printf '\n'
@@ -539,7 +539,7 @@ remove_desktop() {
     fi
   fi
   if [ "$OS" = "Darwin" ]; then
-    osascript -e 'quit app "Firefox VPN"' >/dev/null 2>&1 || true
+    osascript -e 'quit app "AWMVPN"' >/dev/null 2>&1 || true
     rm -rf "/Applications/$MAC_APP" "$HOME/Applications/$MAC_APP"
     rm -f "$MAC_AGENT"
     data="$MAC_DATA"
@@ -577,7 +577,7 @@ detect() {
 }
 
 # auto: with no argument, find what to do: install what the machine needs,
-# or, when Firefox VPN is already there, update it or remove it.
+# or, when AWMVPN is already there, update it or remove it.
 auto() {
   local n installed=1
   # A Linux machine without a graphical session gets the service, which
@@ -586,7 +586,7 @@ auto() {
     need_root
   fi
   if has_app && has_service; then
-    n="$(choose 1 "Firefox VPN is installed both as the app and as the service. Which one?"       "the app" "the service with the web panel")"
+    n="$(choose 1 "AWMVPN is installed both as the app and as the service. Which one?"       "the app" "the service with the web panel")"
     if [ "$n" = 1 ]; then KIND=desktop; else KIND=server; fi
   elif has_app; then
     KIND=desktop
@@ -609,7 +609,7 @@ auto() {
   if [ "$installed" = 1 ]; then
     local what="the app"
     [ "$KIND" = desktop ] || what="the service"
-    n="$(choose 1 "Firefox VPN ($what) is already installed." "update to the newest version" "remove it")"
+    n="$(choose 1 "AWMVPN ($what) is already installed." "update to the newest version" "remove it")"
     if [ "$n" = 2 ]; then
       n="$(choose 1 "Delete its accounts and settings too?" "no, keep them" "yes, delete them")"
       [ "$n" = 1 ] || PURGE=1

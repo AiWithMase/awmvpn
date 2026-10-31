@@ -20,7 +20,7 @@ func TestTheInstalledVersionIsSetForSetupsFolderOnly(t *testing.T) {
 		uninstallKey = old
 	})
 	// No entry: a portable copy.
-	if err := setInstalledVersion(`C:\Apps\Firefox VPN Client`, "1.2.3"); err != nil {
+	if err := setInstalledVersion(`C:\Apps\AWMVPN Client`, "1.2.3"); err != nil {
 		t.Fatal(err)
 	}
 	k, _, err := registry.CreateKey(registry.CURRENT_USER, uninstallKey, registry.ALL_ACCESS)
@@ -28,13 +28,13 @@ func TestTheInstalledVersionIsSetForSetupsFolderOnly(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer k.Close()
-	k.SetStringValue("InstallLocation", `C:\Apps\Firefox VPN Client\`)
+	k.SetStringValue("InstallLocation", `C:\Apps\AWMVPN Client\`)
 	k.SetStringValue("DisplayVersion", "1.0.0")
 	version := func() string {
 		v, _, _ := k.GetStringValue("DisplayVersion")
 		return v
 	}
-	if err := setInstalledVersion(`D:\Portable\Firefox VPN`, "1.2.3"); err != nil || version() != "1.0.0" {
+	if err := setInstalledVersion(`D:\Portable\AWMVPN`, "1.2.3"); err != nil || version() != "1.0.0" {
 		t.Fatalf("another folder: %v, %q", err, version())
 	}
 	if err := setInstalledVersion(`c:\apps\firefox vpn client`, "1.12.3"); err != nil || version() != "1.12.3" {

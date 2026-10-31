@@ -21,7 +21,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/egress"
+	"github.com/aiwithmase/awmvpn/core/internal/egress"
 )
 
 const (

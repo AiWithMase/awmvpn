@@ -10,10 +10,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/securefile"
+	"github.com/aiwithmase/awmvpn/core/internal/securefile"
 )
 
-// The log folder holds one file per local day, firefox-vpn-YYYY-MM-DD.log,
+// The log folder holds one file per local day, awmvpn-YYYY-MM-DD.log,
 // for the last keepLogDays days: when the eighth day starts, the oldest file
 // is deleted. A day's file stops growing at maxDayBytes (a safety limit that
 // only verbose logging under heavy traffic reaches). Tests change these.
@@ -29,7 +29,7 @@ var (
 const fileCheckInterval = 10 * time.Second
 
 const (
-	logFilePrefix = "firefox-vpn"
+	logFilePrefix = "awmvpn"
 	logFileSuffix = ".log"
 	dayLayout     = "2006-01-02"
 )

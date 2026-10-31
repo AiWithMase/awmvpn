@@ -1,6 +1,6 @@
 # Sessions, Transports, and Concurrency
 
-The relevant implementation is in [cmd/firefox-vpn-core](../cmd/firefox-vpn-core): `controller.go`, `renewal.go`, `pool.go`, `session.go`, `tunnel.go`, `upstream_h2.go`, `upstream_h3.go`, `socks.go`, and `relay.go`. Read [authentication](AUTHENTICATION.md) for pass acquisition and [testing](TESTING.md) for regression cases.
+The relevant implementation is in [cmd/awmvpn-core](../cmd/awmvpn-core): `controller.go`, `renewal.go`, `pool.go`, `session.go`, `tunnel.go`, `upstream_h2.go`, `upstream_h3.go`, `socks.go`, and `relay.go`. Read [authentication](AUTHENTICATION.md) for pass acquisition and [testing](TESTING.md) for regression cases.
 
 ## Ownership and admission
 

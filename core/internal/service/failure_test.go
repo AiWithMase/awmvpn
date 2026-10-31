@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/netcheck"
-	"github.com/armanlife/firefox-vpn-client/core/internal/proxy"
+	"github.com/aiwithmase/awmvpn/core/internal/netcheck"
+	"github.com/aiwithmase/awmvpn/core/internal/proxy"
 )
 
 // A failure that may be the device's own is checked against the internet:

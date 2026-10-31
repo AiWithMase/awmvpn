@@ -6,11 +6,11 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/armanlife/firefox-vpn-client/core/internal/tunapi"
+	"github.com/aiwithmase/awmvpn/core/internal/tunapi"
 )
 
 // InstallDir is the installed service's folder.
-const InstallDir = "/opt/firefox-vpn-tun"
+const InstallDir = "/opt/awmvpn-tun"
 
 const unitName = tunapi.ServiceName + ".service"
 
@@ -18,8 +18,8 @@ const unitName = tunapi.ServiceName + ".service"
 // a crash and after an update (which ends it); an uninstall stops it for
 // good (stopForGood).
 const unit = `[Unit]
-Description=Firefox VPN TUN
-Documentation=https://github.com/armanlife/firefox-vpn-client
+Description=AWMVPN TUN
+Documentation=https://github.com/AiWithMase/awmvpn
 After=network.target
 
 [Service]
