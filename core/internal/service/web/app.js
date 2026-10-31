@@ -501,7 +501,7 @@ function renderStatus() {
   // Hero.
   $("#hero-pulse").className = "pulse " + look;
   const sleeping = asleep;
-  $("#hero-eyebrow").textContent = sleeping ? "Sleeping: wakes on the next connection" : phase === "running" ? "Connected through Mozilla VPN" : "Proxy status";
+  $("#hero-eyebrow").textContent = sleeping ? "Sleeping: wakes on the next connection" : phase === "running" ? "Connected through AWMVPN" : "Proxy status";
   $("#hero-title").textContent = phase === "running" ? placeName(s.proxy) || "Connected" : label;
   let message = phase === "running" ? (s.proxy ? s.proxy.upstream : "") : s.state.message;
   if (s.state.retry_at && phase !== "running") message += ` · next attempt ${relative(s.state.retry_at)}`;

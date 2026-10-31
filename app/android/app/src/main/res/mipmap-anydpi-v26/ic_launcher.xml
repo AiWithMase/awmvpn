@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The launcher icon on Android 8+: Mozilla VPN's symbol over black;
-     the launcher crops both layers to its own shape. Made by
+<!-- The launcher icon on Android 8+: AWMVPN's mark over the brand's dark
+     tile; the launcher crops both layers to its own shape. Made by
      tool/app_icons.py. -->
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@mipmap/ic_launcher_background" />
