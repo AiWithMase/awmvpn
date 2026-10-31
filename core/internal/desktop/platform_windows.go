@@ -57,7 +57,7 @@ func acquireSingleInstance(paths service.DataPaths) (release func(), ok bool) {
 
 func trayMutexName(paths service.DataPaths) *uint16 {
 	sum := sha256.Sum256([]byte(strings.ToLower(paths.Dir)))
-	name, _ := windows.UTF16PtrFromString(`Local\FirefoxVPN-tray-` + hex.EncodeToString(sum[:8]))
+	name, _ := windows.UTF16PtrFromString(`Local\AWMVPN-tray-` + hex.EncodeToString(sum[:8]))
 	return name
 }
 

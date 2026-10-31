@@ -21,7 +21,7 @@ var pipeName = PipeName
 // ServiceName is the Windows service; ExeName its executable, which the app
 // also carries in its core folder.
 const (
-	ServiceName = "FirefoxVPNTun"
+	ServiceName = "AWMVPNTun"
 	ExeName     = "awmvpn-tun.exe"
 )
 

@@ -68,15 +68,19 @@ def run(*args):
 
 
 def resize(src, size, dst):
-    run(src, "-resize", f"{size}x{size}", "-strip", dst)
+    run(src, "-resize", f"{size}x{size}", "-strip", "-depth", "8", dst)
 
 
 def ico(src, dst):
     run(src, "-define", "icon:auto-resize=256,128,64,48,32,24,16", dst)
 
 
-def tray_svg(path, mark_color, dot_color, dot_radius):
-    """The mark at 80 px with the state's dot, as an SVG."""
+def tray_svg(path, mark_color, dot_color, dot_radius, size):
+    """The mark with the state's dot, as an SVG at [size] px.
+
+    The coordinates are the 80 px ones the dot radii are given in, so the
+    same drawing scales to any size.
+    """
     mark = open(MARK_SVG, encoding="utf-8").read()
     # Keep the mark's paths only: drop the XML declaration, the outer <svg>
     # tag, and the comments.
@@ -91,22 +95,25 @@ def tray_svg(path, mark_color, dot_color, dot_radius):
         else f'<circle cx="62" cy="62" r="{dot_radius}" fill="{dot_color}"/>'
     )
     svg = (
-        '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" '
+        '<svg xmlns="http://www.w3.org/2000/svg" width="{0}" height="{0}" '
         'viewBox="0 0 80 80">'
         '<g transform="translate(-7,-15) scale(0.0767)">'
-        f"{body}</g>{dot}</svg>"
-    )
+        "{1}</g>{2}</svg>"
+    ).format(size, body, dot)
     with open(path, "w", encoding="utf-8") as f:
         f.write(svg)
 
 
-def tray_icons(states, out_dir):
+def tray_icons(states, out_dir, size):
     os.makedirs(out_dir, exist_ok=True)
     for name, (mark_color, dot_color, radius) in states.items():
         svg = os.path.join(tempfile.gettempdir(), f"awmvpn-tray-{name}.svg")
         png = os.path.join(out_dir, name + ".png")
-        tray_svg(svg, mark_color, dot_color, radius)
-        run("-background", "none", svg, "-resize", "80x80", "-strip", png)
+        tray_svg(svg, mark_color, dot_color, radius, size)
+        run(
+            "-background", "none", svg, "-resize", f"{size}x{size}", "-strip",
+            "-depth", "8", png,
+        )
         ico(png, os.path.join(out_dir, name + ".ico"))
 
 
@@ -159,8 +166,9 @@ def main():
     resize(TILE, 512, os.path.join(ROOT, "app/assets/logo.png"))
 
     # The trays.
-    tray_icons(APP_TRAY, os.path.join(ROOT, "app/assets/tray"))
-    tray_icons(CORE_TRAY, os.path.join(ROOT, "core/internal/desktop/tray"))
+    # The trays: the app's at 64 px, the core's at 32 px (what each draws).
+    tray_icons(APP_TRAY, os.path.join(ROOT, "app/assets/tray"), 64)
+    tray_icons(CORE_TRAY, os.path.join(ROOT, "core/internal/desktop/tray"), 32)
 
     # The Android status bar's icon: the mark's A, in white, as a vector.
     with open(

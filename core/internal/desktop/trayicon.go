@@ -13,9 +13,9 @@ import (
 var AppIconICO []byte
 
 // trayFiles are the tray icons by state, made by app/tool/app_icons.py
-// together with the app's tray icons: a disk in the state's color with the
-// logo's shield in white. Windows takes the .ico files (several sizes), the
-// other systems the 32 px .png files.
+// together with the app's tray icons: the brand's mark in the state's color,
+// with the connection's dot. Windows takes the .ico files (several sizes),
+// the other systems the 32 px .png files.
 //
 //go:embed tray
 var trayFiles embed.FS

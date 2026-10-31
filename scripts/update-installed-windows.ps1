@@ -127,7 +127,7 @@ Write-Host "Installed $version in $dir"
 # app's core asks only when the service is older, and a test build keeps
 # the version. It refuses a build its key did not sign (then install it
 # again: core\awmvpn-tun.exe install, with the administrator prompt).
-if (Get-Service FirefoxVPNTun -ErrorAction SilentlyContinue) {
+if (Get-Service AWMVPNTun -ErrorAction SilentlyContinue) {
     $p = Start-Process -FilePath "$dir\core\awmvpn-tun.exe" -ArgumentList update -Wait -PassThru -NoNewWindow -RedirectStandardError "$coreOut\tun-update.txt"
     $why = (Get-Content "$coreOut\tun-update.txt" -Raw -ErrorAction SilentlyContinue)
     if ($p.ExitCode -eq 0) { Write-Host 'The TUN service updated itself' }

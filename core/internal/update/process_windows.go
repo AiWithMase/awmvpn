@@ -32,7 +32,7 @@ func dataDirOK(appDir, dataDir string) string {
 // uses that folder and starts meanwhile leaves the update's files alone.
 func mutexName(dataDir string) string {
 	sum := sha256.Sum256([]byte(strings.ToLower(filepath.Clean(dataDir))))
-	return `Local\FirefoxVPNUpdate-` + hex.EncodeToString(sum[:8])
+	return `Local\AWMVPNUpdate-` + hex.EncodeToString(sum[:8])
 }
 
 // updating reports whether an update that uses the data folder runs now.

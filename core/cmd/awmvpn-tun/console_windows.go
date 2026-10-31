@@ -45,7 +45,7 @@ func showIntro() {
 	if r, _, _ := attachConsole.Call(attachParentProcess); r == 0 {
 		// One window at a time: should Enter still reach Explorer and open
 		// the file again, the second copy shows nothing.
-		name, _ := windows.UTF16PtrFromString(`Local\FirefoxVPNTunIntro`)
+		name, _ := windows.UTF16PtrFromString(`Local\AWMVPNTunIntro`)
 		mutex, err := windows.CreateMutex(nil, false, name)
 		if err == windows.ERROR_ALREADY_EXISTS {
 			return

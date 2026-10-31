@@ -14,7 +14,7 @@ func TestTheInstalledVersionIsSetForSetupsFolderOnly(t *testing.T) {
 	random := make([]byte, 6)
 	rand.Read(random)
 	old := uninstallKey
-	uninstallKey = `Software\FirefoxVPNUpdateTest-` + hex.EncodeToString(random)
+	uninstallKey = `Software\AWMVPNUpdateTest-` + hex.EncodeToString(random)
 	t.Cleanup(func() {
 		registry.DeleteKey(registry.CURRENT_USER, uninstallKey)
 		uninstallKey = old
@@ -37,7 +37,7 @@ func TestTheInstalledVersionIsSetForSetupsFolderOnly(t *testing.T) {
 	if err := setInstalledVersion(`D:\Portable\AWMVPN`, "1.2.3"); err != nil || version() != "1.0.0" {
 		t.Fatalf("another folder: %v, %q", err, version())
 	}
-	if err := setInstalledVersion(`c:\apps\firefox vpn client`, "1.12.3"); err != nil || version() != "1.12.3" {
+	if err := setInstalledVersion(`c:\apps\awmvpn client`, "1.12.3"); err != nil || version() != "1.12.3" {
 		t.Fatalf("Setup's folder: %v, %q", err, version())
 	}
 	for name, want := range map[string]uint64{"MajorVersion": 1, "VersionMajor": 1, "MinorVersion": 12, "VersionMinor": 12} {

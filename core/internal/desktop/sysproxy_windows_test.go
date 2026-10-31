@@ -18,7 +18,7 @@ import (
 // HKCU\Software, so the user's real proxy setting is never touched.
 func useTestProxyKeys(t *testing.T) registry.Key {
 	t.Helper()
-	base := fmt.Sprintf(`Software\FirefoxVPNTest-%d`, time.Now().UnixNano())
+	base := fmt.Sprintf(`Software\AWMVPNTest-%d`, time.Now().UnixNano())
 	oldSettings, oldBackup, oldAnnounce := internetSettingsKey, backupKey, announceProxyChange
 	internetSettingsKey, backupKey = base+`\Internet Settings`, base+`\PreviousProxy`
 	announceProxyChange = func() {}

@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-// Every tray state has its icon in both formats: a PNG with a transparent
-// corner and the white shield in the middle, and an ICO.
+// Every tray state has its icon in both formats: a 32 px PNG of the mark
+// (the middle opaque, the corners transparent), and an ICO.
 func TestTrayIcons(t *testing.T) {
 	for _, name := range []string{iconRunning, iconRunningAsleep, iconSet, iconSetAsleep, iconWaiting, iconError, iconOff} {
 		data, err := trayFiles.ReadFile("tray/" + name + ".png")
@@ -21,11 +21,13 @@ func TestTrayIcons(t *testing.T) {
 		if b := img.Bounds(); b.Dx() != 32 || b.Dy() != 32 {
 			t.Fatalf("%s: size %v", name, b)
 		}
-		if _, _, _, a := img.At(0, 0).RGBA(); a != 0 {
-			t.Fatalf("%s: the corner should be transparent", name)
+		for _, p := range [][2]int{{0, 0}, {31, 0}, {0, 31}, {31, 31}} {
+			if _, _, _, a := img.At(p[0], p[1]).RGBA(); a != 0 {
+				t.Fatalf("%s: the corner %v should be transparent", name, p)
+			}
 		}
-		if r, g, b, _ := img.At(18, 15).RGBA(); r>>8 < 0xf0 || g>>8 < 0xf0 || b>>8 < 0xf0 {
-			t.Fatalf("%s: the middle should be the white shield", name)
+		if _, _, _, a := img.At(16, 16).RGBA(); a == 0 {
+			t.Fatalf("%s: the middle should be the mark", name)
 		}
 		ico, err := trayFiles.ReadFile("tray/" + name + ".ico")
 		if err != nil || !bytes.Equal(ico[:4], []byte{0, 0, 1, 0}) {

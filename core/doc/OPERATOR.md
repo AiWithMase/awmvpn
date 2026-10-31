@@ -179,7 +179,7 @@ The TUN runs in a separate program, the TUN service `awmvpn-tun` (`awmvpn-tun.ex
 
 | | Windows | Linux | macOS |
 |---|---|---|---|
-| The service | `FirefoxVPNTun` ("AWMVPN TUN") | the systemd unit `awmvpn-tun.service` | the launchd daemon `com.aiwithmase.awmvpn.tun` |
+| The service | `AWMVPNTun` ("AWMVPN TUN") | the systemd unit `awmvpn-tun.service` | the launchd daemon `com.aiwithmase.awmvpn.tun` |
 | Its folder (with its log in `logs`) | `C:\Program Files\AWMVPN\` | `/opt/awmvpn-tun/` | `/Library/Application Support/AWMVPN TUN/` |
 | The adapter | "AWMVPN" (wintun) | `awmvpn` | the first free `utunN` |
 | The core's channel to it | the named pipe `\.\pipe\awmvpn-tun` | the socket `/run/awmvpn-tun.sock` | the socket `/var/run/awmvpn-tun.sock` |

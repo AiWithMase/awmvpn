@@ -817,7 +817,7 @@ func (ui *consoleUI) render() {
 }
 
 func (ui *consoleUI) header(width int) []string {
-	title := ansiBold + ansiOrange + "  ◆ FIREFOX VPN" + ansiReset + ansiGrey + "  version " + version.Current + ansiReset
+	title := ansiBold + ansiOrange + "  ◆ AWMVPN" + ansiReset + ansiGrey + "  version " + version.Current + ansiReset
 	return []string{"", title, ansiGrey + "  " + strings.Repeat("─", max(10, min(width-4, 64))) + ansiReset}
 }
 

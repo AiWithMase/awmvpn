@@ -215,7 +215,7 @@ end;
 // installed (core\cmd\awmvpn-tun).
 function TunServiceInstalled: Boolean;
 begin
-  Result := RegKeyExists(HKLM, 'SYSTEM\CurrentControlSet\Services\FirefoxVPNTun');
+  Result := RegKeyExists(HKLM, 'SYSTEM\CurrentControlSet\Services\AWMVPNTun');
 end;
 
 // IsUnder tells whether Dir is Parent or a folder inside it.
