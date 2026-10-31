@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- A placeholder until the final name is chosen. -->
+    <!-- The app's name, as the launcher and the notification show it. -->
     <string name="app_name">AWMVPN</string>
     <string name="notification_channel">VPN</string>
     <string name="notification_connecting">Connecting…</string>
