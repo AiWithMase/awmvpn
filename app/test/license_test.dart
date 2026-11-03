@@ -60,6 +60,21 @@ void main() {
       );
       expect(ended.expired, isTrue);
     });
+
+    test('a new server date keeps the token and account', () {
+      final license = License(
+        token: 'awm_0123456789abcdef',
+        accountId: 'a1',
+        label: 'AWMVPN',
+        expiresAt: DateTime.utc(2026, 12, 3, 10, 11, 12),
+      );
+      final later = DateTime.utc(2027, 1, 3, 10, 11, 12);
+      final extended = license.withExpiry(later);
+      expect(extended.token, license.token);
+      expect(extended.accountId, license.accountId);
+      expect(extended.label, license.label);
+      expect(extended.expiresAt, later);
+    });
   });
 
   group('the pasted token', () {

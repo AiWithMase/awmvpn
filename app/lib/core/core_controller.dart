@@ -179,29 +179,44 @@ class CoreController extends ChangeNotifier {
     }
   });
 
-  /// Ends the subscriptions whose date passed, and asks the server now and
-  /// then about the others, so a token the bot revoked loses its account
-  /// here too.
+  /// Ends the subscriptions the server refuses, and adopts its end dates:
+  /// a referral extends live tokens without changing them, so a date kept
+  /// here can be older than the truth. The server is asked first, so a
+  /// locally expired subscription is not removed when it was extended.
   Future<void> _checkLicenses() async {
     final api = _api;
     if (api == null || licenses.isEmpty) return;
-    for (final license in licenses.values.toList()) {
-      if (license.expired) await _endLicense(license);
-    }
     final server = licenseApi;
-    if (server == null || licenses.isEmpty) return;
     final now = DateTime.now();
-    if (_nextLicenseCheck != null && now.isBefore(_nextLicenseCheck!)) return;
-    _nextLicenseCheck = now.add(_licenseCheckGap);
+    final askServer =
+        server != null &&
+        (_nextLicenseCheck == null || !now.isBefore(_nextLicenseCheck!));
+    if (askServer) _nextLicenseCheck = now.add(_licenseCheckGap);
+
     for (final license in licenses.values.toList()) {
+      if (server == null || !askServer) {
+        // No fresh answer this time: the last date the server gave ends it.
+        if (license.expired) await _endLicense(license);
+        continue;
+      }
       LicenseCheck answer;
       try {
         answer = await server.check(license.token);
       } on LicenseException {
         // Unreachable: the date kept here still ends the account.
+        if (license.expired) await _endLicense(license);
         continue;
       }
-      if (!answer.valid) await _endLicense(license);
+      if (!answer.valid) {
+        await _endLicense(license);
+        continue;
+      }
+      final until = answer.expiresAt;
+      if (until != null && until != license.expiresAt) {
+        licenses[license.accountId] = license.withExpiry(until);
+        await licenseStore?.save(licenses.values);
+        if (!_disposed) notifyListeners();
+      }
     }
   }
 

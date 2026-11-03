@@ -678,7 +678,8 @@ void main() {
   ) async {
     stillMotion(tester);
     final api = FakeApi();
-    final shop = FakeLicenseApi();
+    // The server is the judge: it says the token is over.
+    final shop = FakeLicenseApi()..refuse = LicenseProblem.expired;
     final store = MemoryLicenseStore()
       ..saved = [
         License(
@@ -711,6 +712,54 @@ void main() {
     final l = lookupAppLocalizations(const Locale('fa'));
     expect(find.text(l.licenseEndedTitle('AWMVPN')), findsOneWidget);
     expect(find.text(l.licenseEndedBody), findsOneWidget);
+
+    await tester.pumpWidget(const SizedBox());
+    core.dispose();
+  });
+
+  testWidgets('a subscription the server extended keeps its account', (
+    tester,
+  ) async {
+    stillMotion(tester);
+    final api = FakeApi();
+    // The date kept here passed, but a referral pushed the real one out.
+    final shop = FakeLicenseApi(
+      ends: DateTime.now().add(const Duration(days: 60)),
+    );
+    final store = MemoryLicenseStore()
+      ..saved = [
+        License(
+          token: 'awm_0123456789abcdef',
+          accountId: 'alice',
+          label: 'AWMVPN',
+          expiresAt: DateTime.now().subtract(const Duration(minutes: 1)),
+        ),
+      ];
+    final core = CoreController(
+      () async => api,
+      pollInterval: const Duration(hours: 1),
+      licenseApi: shop,
+      licenseStore: store,
+    );
+    core.start();
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('fa'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AccountsPage(core: core),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(api.removed, isNot(contains('alice')));
+    final kept = core.licenses['alice'];
+    expect(kept, isNotNull);
+    expect(kept!.expiresAt.isAfter(DateTime.now()), isTrue);
+    // The new date is what the next run reads.
+    final saved = await store.load();
+    expect(saved.single.accountId, 'alice');
+    expect(saved.single.expiresAt.isAfter(DateTime.now()), isTrue);
 
     await tester.pumpWidget(const SizedBox());
     core.dispose();

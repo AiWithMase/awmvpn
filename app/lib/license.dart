@@ -216,6 +216,15 @@ class License {
 
   bool get expired => !expiresAt.isAfter(DateTime.now());
 
+  /// The same subscription with a new end date, as the server reported it: a
+  /// referral extends a live token without changing the token or account.
+  License withExpiry(DateTime when) => License(
+    token: token,
+    accountId: accountId,
+    label: label,
+    expiresAt: when,
+  );
+
   Map<String, Object?> toJson() => {
     'token': token,
     'account_id': accountId,
