@@ -443,5 +443,5 @@ jobs:
           bash scripts/release-notes.sh "$GITHUB_REF_NAME" > notes.md
           gh release create "$GITHUB_REF_NAME" release/* \
             --repo "$GITHUB_REPOSITORY" \
-            --title "AWMVPN ${{ needs.test.outputs.version }}" \
+            --title "awmvpn ${{ needs.test.outputs.version }}" \
             --notes-file notes.md
