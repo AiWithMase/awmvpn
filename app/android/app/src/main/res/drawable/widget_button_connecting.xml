@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The home-screen widget's button, connecting: the brand's mark
+  on a round disc shaded in the state's color, with a soft halo; inside the
+  mark, three dots. Gradients need API 24, the app's minSdk.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- The halo. -->
+    <path
+        android:fillColor="#33F08C00"
+        android:pathData="M48,1a47,47 0,1 1,0 94a47,47 0,1 1,0 -94z" />
+    <!-- The disc, lighter at the top left. -->
+    <path android:pathData="M48,4a44,44 0,1 1,0 88a44,44 0,1 1,0 -88z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="17"
+                android:startY="8"
+                android:endX="79"
+                android:endY="88"
+                android:startColor="#FFFBBF24"
+                android:endColor="#FFC2410C" />
+        </aapt:attr>
+    </path>
+    <!-- A soft shine on the upper half. -->
+    <path android:pathData="M48,6c-21,0 -37.5,13 -39.5,31c11,-9 24,-13 39.5,-13s28.5,4 39.5,13c-2,-18 -18.5,-31 -39.5,-31z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="48"
+                android:startY="6"
+                android:endX="48"
+                android:endY="37"
+                android:startColor="#40FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </aapt:attr>
+    </path>
+    <!-- The mark: the brand's M and A, white. -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="7.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M27.6,30L27.6,55.3" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="7.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M27.6,32.4L38.5,44.5L49.3,32.4" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="5.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M51.1,55.3L59.6,31.2L68,55.3" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M59.6,44.1a2.2,2.2 0,1 0,0 4.4a2.2,2.2 0,1 0,0 -4.4z" />
+    <!-- The state's sign, on a white disc at the lower right. -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M70,59a10,10 0,1 0,0 20a10,10 0,1 0,0 -20z" />
+    <group
+        android:translateX="43.6"
+        android:translateY="42.6"
+        android:scaleX="0.55"
+        android:scaleY="0.55">
+    <path
+        android:fillColor="#FFC2410C"
+        android:pathData="M36.3,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0M48,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0M59.7,46.5m-4.2,0a4.2,4.2 0,1 1,8.4 0a4.2,4.2 0,1 1,-8.4 0" />
+    </group>
+</vector>
