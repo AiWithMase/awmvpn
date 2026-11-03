@@ -32,13 +32,14 @@ cat <<EOF
 
 ## شروع
 
-۱. توکن را از ربات [@awmvpn_bot](https://t.me/awmvpn_bot) بگیرید: دستور `/token`.
+۱. توکن را از ربات [@awmvpn_bot](https://t.me/awmvpn_bot) بگیرید: دستور \`/token\`.
 ۲. برنامه را نصب و باز کنید، به **اشتراک‌ها** بروید و **فعال‌سازی** را بزنید.
 ۳. کل پیام ربات (یا خود توکن) را بچسبانید. اکانت اضافه می‌شود و تا تاریخ
    پایان توکن کار می‌کند.
 
-هر زیرمجموعه یک جایگاه اشتراک بیشتر می‌دهد. با `/revoke` همهٔ توکن‌های فعال
-لغو می‌شوند و برنامه اکانت آن‌ها را حذف می‌کند.
+هر زیرمجموعه یک جایگاه اشتراک بیشتر می‌دهد و یک ماه به انقضای توکن‌های
+دعوت‌کننده اضافه می‌کند. با \`/revoke\` همهٔ توکن‌های فعال لغو می‌شوند و
+برنامه اکانت آن‌ها را حذف می‌کند.
 
 ## Download
 
@@ -52,8 +53,9 @@ cat <<EOF
 | Linux 64-bit (x86) | [AWMVPN-$version-Linux-amd64.tar.gz]($(file Linux-amd64.tar.gz)) |
 | Linux 64-bit (ARM) | [AWMVPN-$version-Linux-arm64.tar.gz]($(file Linux-arm64.tar.gz)) |
 
-Subscriptions come from [@awmvpn_bot](https://t.me/awmvpn_bot): send `/token`,
+Subscriptions come from [@awmvpn_bot](https://t.me/awmvpn_bot): send \`/token\`,
 then paste the bot's message into the app's **Subscriptions** page. There is
-no sign-in or sign-up form. Checksums are in \`SHA256SUMS.txt\`; the desktop
-apps verify their updates against \`SHA256SUMS.txt.sig\`.
+no sign-in or sign-up form. Each invite adds a subscription slot and a month
+of extra expiry to the inviter's tokens. Checksums are in \`SHA256SUMS.txt\`;
+the desktop apps verify their updates against \`SHA256SUMS.txt.sig\`.
 EOF
