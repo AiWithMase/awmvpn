@@ -8,7 +8,7 @@ import (
 )
 
 // projectURL is where people find the app this service belongs to.
-const projectURL = "https://github.com/AiWithMase/awmvpn"
+const projectURL = "https://github.com/daschera1492/awmvpn-client"
 
 // intro is what the service says when it is started with no command, as
 // someone does who opens it by hand: what it is.

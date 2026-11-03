@@ -115,7 +115,7 @@ func AppDir(exe string) string {
 
 // releasesURL is where GitHub serves a release's files:
 // <releasesURL>v<version>/<file>.
-const releasesURL = "https://github.com/AiWithMase/awmvpn/releases/download/"
+const releasesURL = "https://github.com/daschera1492/awmvpn-client/releases/download/"
 
 // ServerEnv names a release server to use instead of GitHub, for trying
 // updates with a local test release: it serves

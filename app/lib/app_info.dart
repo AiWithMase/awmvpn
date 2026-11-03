@@ -8,7 +8,7 @@ const appVersion = String.fromEnvironment('APP_VERSION', defaultValue: '0.0.0');
 
 /// The GitHub repository, "owner/name", for the source link and the update
 /// check.
-const githubRepo = 'AiWithMase/awmvpn';
+const githubRepo = 'daschera1492/awmvpn-client';
 
 /// The brand, as the About page shows it.
 const brandName = 'AWMVPN';

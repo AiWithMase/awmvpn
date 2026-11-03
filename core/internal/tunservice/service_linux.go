@@ -19,7 +19,7 @@ const unitName = tunapi.ServiceName + ".service"
 // good (stopForGood).
 const unit = `[Unit]
 Description=AWMVPN TUN
-Documentation=https://github.com/AiWithMase/awmvpn
+Documentation=https://github.com/daschera1492/awmvpn-client
 After=network.target
 
 [Service]

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs or updates AWMVPN from the newest release on GitHub:
 #
-#   curl -fsSL https://raw.githubusercontent.com/AiWithMase/awmvpn/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/daschera1492/awmvpn-client/main/install.sh | bash
 #
 # Without an argument it decides by itself:
 #   - macOS, or Linux with a graphical session: the app, for the current
@@ -24,7 +24,7 @@
 #   core/scripts/install-systemd.sh
 set -euo pipefail
 
-REPO="AiWithMase/awmvpn"
+REPO="daschera1492/awmvpn-client"
 RAW="https://raw.githubusercontent.com/$REPO/main/install.sh"
 VERSION="${VERSION:-latest}"
 if [ "$VERSION" = "latest" ]; then

@@ -38,7 +38,7 @@ Tested on a Xiaomi Redmi Router AX6S: 12 MB of RAM idle, 20 MB with traffic.
 
 ```sh
 mkdir -p /root/awmvpn && cd /root/awmvpn
-wget -O core.tar.gz https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-arm64.tar.gz
+wget -O core.tar.gz https://github.com/daschera1492/awmvpn-client/releases/latest/download/awmvpn-core-linux-arm64.tar.gz
 tar -xzf core.tar.gz && mv awmvpn-core-linux-arm64/awmvpn-core . && rm -r core.tar.gz awmvpn-core-linux-arm64
 chmod +x awmvpn-core
 ```
@@ -48,7 +48,7 @@ chmod +x awmvpn-core
 
 **Way B: from a computer**
 
-1. Download [arm64](https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-arm64.tar.gz) or [amd64](https://github.com/AiWithMase/awmvpn/releases/latest/download/awmvpn-core-linux-amd64.tar.gz) and unpack it.
+1. Download [arm64](https://github.com/daschera1492/awmvpn-client/releases/latest/download/awmvpn-core-linux-arm64.tar.gz) or [amd64](https://github.com/daschera1492/awmvpn-client/releases/latest/download/awmvpn-core-linux-amd64.tar.gz) and unpack it.
 2. Open [Bitvise SSH Client](https://www.bitvise.com/ssh-client-download) or [WinSCP](https://winscp.net/): router address, port 22, user `root`.
 3. Put `awmvpn-core` in `/root/awmvpn/` (make the folder).
 4. On the router: `chmod +x /root/awmvpn/awmvpn-core`
