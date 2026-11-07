@@ -2,7 +2,7 @@ name: awmvpn
 description: "awmvpn - a free VPN client that signs in with a Firefox Account"
 publish_to: 'none'
 
-version: 1.0.6+127
+version: 1.0.7+128
 
 environment:
   sdk: ^3.13.5
