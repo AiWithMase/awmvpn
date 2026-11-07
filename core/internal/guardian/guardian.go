@@ -30,14 +30,18 @@ type proxyPassResponse struct {
 	Token string `json:"token"`
 }
 
-// applyGuardianHeaders sets the request shape Firefox uses for every
-// Guardian call: bearer auth, JSON content type, and fetch's "no-cache"
-// mode, which Firefox sends as Cache-Control: max-age=0 (no Pragma).
+// applyGuardianHeaders sets the request shape Mozilla's VPN client uses for
+// every Guardian call: bearer auth, JSON accept/content type, fetch's
+// "no-cache" mode (Cache-Control: max-age=0, no Pragma), the MozillaVPN
+// User-Agent, and an unencoded body. The Firefox User-Agent this program
+// used before is refused by Guardian.
 func applyGuardianHeaders(req *http.Request, accessToken string) {
 	req.Header.Set("Authorization", "Bearer "+accessToken)
+	req.Header.Set("User-Agent", controlplane.MozillaVPNUserAgent())
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Accept-Encoding", "identity")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cache-Control", "max-age=0")
-	controlplane.ApplyFirefoxHeaders(req)
 }
 
 func guardianURL(endpoint, path string) string {

@@ -35,21 +35,23 @@ After verification, `fxa.OAuthToken` issues offline OAuth credentials, the accou
 
 Each account's credentials are loaded by `AccountPool.AuthFor` and refreshed by `FreshRuntimeAuth`/`refreshRuntimeAuth` (`internal/proxy`); refreshed credentials are written back to that account's own file through `runtimeAuth.persist`.
 
-[internal/fxa](../internal/fxa/fxa.go) owns password derivation and HAWK signing (`hawk.go`), `fxa.Login`, `fxa.LoginWithUnblockCode`, `fxa.SendUnblockCode`, `fxa.VerifySession`, `fxa.VerifyTOTP`, `fxa.OAuthToken`, `fxa.RefreshToken`, and `fxa.RegisterDevice`. OAuth issuance uses the FxA credentials grant with `access_type=offline`; refresh uses `grant_type=refresh_token`. When refresh returns no replacement refresh token, the existing one is preserved.
+[internal/fxa](../internal/fxa/fxa.go) owns password derivation and HAWK signing (`hawk.go`), `fxa.Login`, `fxa.LoginWithUnblockCode`, `fxa.SendUnblockCode`, `fxa.VerifySession`, `fxa.VerifyTOTP`, `fxa.OAuthToken`, `fxa.RefreshToken`, and `fxa.RegisterDevice`. OAuth issuance uses the authorization-code flow with PKCE (`POST /oauth/authorization` on the FxA base, then `grant_type=authorization_code` on the OAuth host), as Mozilla's client and FoxyVPN v2.0.2 do. Refresh uses `grant_type=refresh_token` on the OAuth host first and falls back to the FxA base when that host is unreachable, blocked (406), rate limited (429), or failing with a 5xx; a 400/401/403 is a rejection of the token and is not retried. When refresh returns no replacement refresh token, the existing one is preserved.
 
 Defaults and relevant paths:
 
 | Service | Endpoint / path |
 | --- | --- |
 | FxA base | `https://api.accounts.firefox.com/v1` |
-| OAuth | `/oauth/token` relative to that base |
+| OAuth host | `https://oauth.accounts.firefox.com/v1` |
+| OAuth authorization | `POST /oauth/authorization` relative to the FxA base (HAWK session token, PKCE S256) |
+| OAuth token | `POST /token` relative to the OAuth host (`authorization_code`), or `POST /oauth/token` relative to the FxA base (`refresh_token`) |
 | Guardian base | `https://vpn.mozilla.org`, `network.guardian_endpoint` in `config.json` |
 | Guardian pass | `GET /api/v1/fpn/token` |
 | Guardian quota | `HEAD /api/v1/fpn/token` (headers only, no pass minted) |
 | Guardian status | `GET /api/v1/fpn/status` |
 | Guardian activation | `POST /api/v1/fpn/activate` |
 
-Every Guardian request sends `Authorization: Bearer`, `Content-Type: application/json`, and `Cache-Control: max-age=0` (fetch's no-cache mode), as Firefox's `GuardianClient` does. Every control-plane request also carries desktop Firefox's `User-Agent` and `Accept: */*` (`controlplane.ApplyFirefoxHeaders`).
+Every Guardian request sends `Authorization: Bearer`, `Accept: application/json`, `Content-Type: application/json`, `Accept-Encoding: identity`, and `Cache-Control: max-age=0` (fetch's no-cache mode), as Mozilla's `GuardianClient` does. Every control-plane request also carries the Mozilla VPN client's `User-Agent` (`MozillaVPN/<version> (sys:<os> <version>)`), `Accept: */*`, and `Accept-Encoding: identity` (`controlplane.ApplyFirefoxHeaders`). The desktop Firefox User-Agent this program used before is refused by Mozilla's control plane; `controlplane.FirefoxUserAgent` remains for the proxy's CONNECT.
 
 [internal/guardian/guardian.go](../internal/guardian/guardian.go) parses the pass and quota headers. A non-200 answer is a `guardian.HTTPError` whose `errors.Is` classification follows Firefox's `GuardianClient.toError`:
 

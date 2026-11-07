@@ -363,7 +363,14 @@ func TestDashboardSignInWithEmailCode(t *testing.T) {
 				return coreResponse(r, http.StatusBadRequest, `{"errno":183,"message":"Invalid code"}`, nil), nil
 			}
 			return coreResponse(r, http.StatusOK, `{}`, nil), nil
-		case r.URL.Path == "/v1/oauth/token":
+		case r.URL.Path == "/v1/oauth/authorization":
+			stateBody, _ := io.ReadAll(r.Body)
+			var authReq struct {
+				State string `json:"state"`
+			}
+			_ = json.Unmarshal(stateBody, &authReq)
+			return coreResponse(r, http.StatusOK, `{"code":"code-1","state":"`+authReq.State+`"}`, nil), nil
+		case r.URL.Path == "/v1/token" || r.URL.Path == "/v1/oauth/token":
 			return coreResponse(r, http.StatusOK, `{"access_token":"access-new","refresh_token":"refresh-new","expires_in":3600,"scope":"profile"}`, nil), nil
 		case r.Method == http.MethodHead && strings.HasSuffix(r.URL.Path, "/api/v1/fpn/token"):
 			return coreResponse(r, http.StatusOK, "", quotaHeader(2)), nil

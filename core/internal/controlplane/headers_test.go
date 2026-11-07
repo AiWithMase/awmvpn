@@ -37,7 +37,13 @@ func TestFirefoxUserAgentFollowsTheRelease(t *testing.T) {
 
 	req, _ := http.NewRequest(http.MethodGet, "https://vpn.mozilla.org/api/v1/fpn/token", nil)
 	ApplyFirefoxHeaders(req)
-	if req.Header.Get("User-Agent") != ua || req.Header.Get("Accept") != "*/*" {
+	if req.Header.Get("User-Agent") != MozillaVPNUserAgent() || req.Header.Get("Accept") != "*/*" {
 		t.Fatalf("headers %v", req.Header)
+	}
+	if req.Header.Get("Accept-Encoding") != "identity" {
+		t.Fatalf("Accept-Encoding %q", req.Header.Get("Accept-Encoding"))
+	}
+	if !strings.HasPrefix(req.Header.Get("User-Agent"), "MozillaVPN/") {
+		t.Fatalf("control plane User-Agent %q", req.Header.Get("User-Agent"))
 	}
 }

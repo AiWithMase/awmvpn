@@ -54,9 +54,45 @@ func firefoxPlatform(goos, goarch string) string {
 	return "X11; Linux x86_64"
 }
 
-// ApplyFirefoxHeaders sets the User-Agent and Accept headers Firefox sends
-// with every control plane API request.
+// vpnClientVersion is the Mozilla VPN release the control plane expects to
+// see in the User-Agent. Mozilla's client names its own version here, and
+// mirrors of it (FoxyVPN) use this one.
+const vpnClientVersion = "2.24.0"
+
+// MozillaVPNUserAgent is the User-Agent Mozilla's control plane accepts.
+//
+// Mozilla changed the FxA control plane: the desktop Firefox User-Agent this
+// program used is now refused on the account, Guardian, and Remote Settings
+// APIs. Mozilla's own VPN client identifies itself as MozillaVPN/<version>
+// (sys:<os> <version>), and so does FoxyVPN (Vauth/FoxyVPN v2.0.2), whose
+// flow is known to work. The data plane (the proxy's CONNECT) keeps
+// FirefoxUserAgent: that side still expects a browser.
+func MozillaVPNUserAgent() string {
+	return "MozillaVPN/" + vpnClientVersion + " (sys:" + vpnPlatform(runtime.GOOS) + ")"
+}
+
+// vpnPlatform is the system part of MozillaVPN's User-Agent
+// (NetworkManager::osVersion in mozilla-vpn-client): product type and
+// version where one is known.
+func vpnPlatform(goos string) string {
+	switch goos {
+	case "windows":
+		return "windows 10"
+	case "darwin":
+		return "macos 14"
+	case "android":
+		return "android 14"
+	default:
+		return "linux"
+	}
+}
+
+// ApplyFirefoxHeaders sets the headers Mozilla's control plane expects:
+// the Mozilla VPN client's User-Agent, "*/*", and an unencoded body. The
+// last one keeps Go's transport from adding Accept-Encoding: gzip, which the
+// control plane rejects.
 func ApplyFirefoxHeaders(req *http.Request) {
-	req.Header.Set("User-Agent", FirefoxUserAgent())
+	req.Header.Set("User-Agent", MozillaVPNUserAgent())
 	req.Header.Set("Accept", "*/*")
+	req.Header.Set("Accept-Encoding", "identity")
 }

@@ -23,7 +23,7 @@ import (
 func reloginFixture(t *testing.T, logins *atomic.Int32, loginErr func(*http.Request) (*http.Response, error)) {
 	t.Helper()
 	setCoreControlPlane(t, func(r *http.Request) (*http.Response, error) {
-		if r.URL.Host == "api.accounts.firefox.com" {
+		if r.URL.Host == "api.accounts.firefox.com" || r.URL.Host == "oauth.accounts.firefox.com" {
 			var body map[string]any
 			if r.Body != nil {
 				_ = json.NewDecoder(r.Body).Decode(&body)
@@ -37,9 +37,12 @@ func reloginFixture(t *testing.T, logins *atomic.Int32, loginErr func(*http.Requ
 				return coreResponse(r, http.StatusOK, `{"uid":"u1","sessionToken":"`+strings.Repeat("ab", 32)+`","verified":true}`, nil), nil
 			case r.URL.Path == "/v1/session/destroy":
 				return coreResponse(r, http.StatusOK, `{}`, nil), nil
-			case r.URL.Path == "/v1/oauth/token" && body["grant_type"] == "refresh_token":
+			case (r.URL.Path == "/v1/oauth/token" || r.URL.Path == "/v1/token") && body["grant_type"] == "refresh_token":
 				return coreResponse(r, http.StatusOK, `{"access_token":"refreshed-access","refresh_token":"refresh-a","expires_in":3600,"token_type":"bearer"}`, nil), nil
-			case r.URL.Path == "/v1/oauth/token":
+			case r.URL.Path == "/v1/oauth/authorization":
+				state, _ := body["state"].(string)
+				return coreResponse(r, http.StatusOK, `{"code":"code-1","state":"`+state+`"}`, nil), nil
+			case (r.URL.Path == "/v1/oauth/token" || r.URL.Path == "/v1/token") && body["grant_type"] == "authorization_code":
 				return coreResponse(r, http.StatusOK, `{"access_token":"new-access","refresh_token":"new-refresh","expires_in":3600,"token_type":"bearer"}`, nil), nil
 			}
 			return nil, errors.New("unexpected FxA request " + r.URL.Path)
