@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"crypto/tls"
 	"fmt"
 	"net"
 	"net/http"
@@ -69,10 +68,7 @@ func configureAPIRelay(raw string) error {
 	}
 	relay, _ := url.Parse(raw)
 	dialer := resolverDialer{timeout: apiRelayDialTimeout}
-	transport := &relayTransport{relay: relay, base: &http.Transport{
-		DialContext:     dialer.DialContext,
-		TLSClientConfig: &tls.Config{MinVersion: tls.VersionTLS12},
-	}}
+	transport := &relayTransport{relay: relay, base: controlplane.NewTransport(dialer.DialContext)}
 	controlplane.SetTransport(transport)
 	apiRelayTransport = transport
 	logx.Info("control plane API requests sent through relay=%s", relay.Host)

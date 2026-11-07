@@ -22,13 +22,11 @@ const (
 	errorBodyLogLimit = 16 * 1024
 )
 
-// defaultTransport is Go's default transport with its connections resolved
-// through the configured DNS servers (package resolver).
-var defaultTransport = func() *http.Transport {
-	t := http.DefaultTransport.(*http.Transport).Clone()
-	t.DialContext = DialContext
-	return t
-}()
+// defaultTransport resolves its connections through the configured DNS
+// servers (package resolver) and presents a Firefox TLS ClientHello, because
+// Fastly's anti-bot layer in front of Firefox Accounts refuses Go's own one
+// with a bare HTTP 406.
+var defaultTransport = NewTransport(DialContext)
 
 // DialContext connects through the configured resolver with a timeout; a
 // custom transport (the API proxy) uses it to reach its proxy.
@@ -71,7 +69,22 @@ func Transport() http.RoundTripper {
 
 // Do sends req with the shared control plane client.
 func Do(req *http.Request) (*http.Response, error) {
+	forceChunked(req)
 	return client.Do(req)
+}
+
+// forceChunked sends a request body with Transfer-Encoding: chunked instead
+// of Content-Length. Fastly's anti-bot layer also fingerprints the HTTP
+// request shape: Go writes Content-Length before Accept, and that shape is
+// answered with a bare HTTP 406 before reaching Firefox Accounts, while the
+// chunked shape (and the one browsers and curl send) passes. The control
+// plane endpoints accept chunked bodies, and the bodies here are small.
+func forceChunked(req *http.Request) {
+	if req.Body == nil || req.Body == http.NoBody || req.ContentLength < 0 {
+		return
+	}
+	req.ContentLength = -1
+	req.Header.Del("Content-Length")
 }
 
 // SetCookies stores cookies for u in the shared client's cookie jar.
