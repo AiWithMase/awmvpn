@@ -329,6 +329,12 @@ class FakeApi implements CoreApi {
   Map<String, Object?>? importOutcome;
   Map<String, Object?>? imported;
 
+  /// The account the app made active last (POST /api/accounts/{id}/activate).
+  String? activated;
+
+  @override
+  Future<void> activateAccount(String id) async => activated = id;
+
   @override
   Future<Account> importAccount({
     required String email,
@@ -621,6 +627,8 @@ void main() {
     expect(shop.redeemed, ['awm_0123456789abcdef0123456789abcdef01234567']);
     expect(api.imported?['email'], 'sub@example.com');
     expect(api.imported?['refresh_token'], 'refresh-sub');
+    // The added account is the one in use at once, without another tap.
+    expect(api.activated, 'imported');
     expect(core.licenses['imported']?.token, shop.redeemed.single);
     // The dialog closes, and the token is kept for the next run.
     expect(find.byType(AlertDialog), findsNothing);
