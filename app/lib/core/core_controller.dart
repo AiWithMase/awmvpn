@@ -166,6 +166,15 @@ class CoreController extends ChangeNotifier {
         scope: redeemed.scope,
         expiresIn: redeemed.expiresIn,
       );
+      // The account the token just added is the one in use: the user should
+      // not have to pick it from the list again. The account stays stored
+      // when the core cannot switch now, and the accounts page offers it.
+      try {
+        await api.activateAccount(account.id);
+      } on CoreApiException catch (e) {
+        // Added all the same; the next connect uses it by priority.
+        debugPrint('could not activate the imported account: $e');
+      }
       licenses[account.id] = License(
         token: trimmed,
         accountId: account.id,
